@@ -1,13 +1,14 @@
 # This is a showcase of an ecommerce store 
-# Life cycle
-    1 Analysis and specification requirements
-    2 Design
-    3 Coding
-    4 Testing
-    5 Instalation and production
-    6 Maintenance
+## Life cycle
++ [Analysis and specification requirements](#Analysis)
++ [Design](#Design)
++ [Coding](#Coding)
++ [Testing](#Testing)
++ [Instalation and production](#Installation)
++ [Maintenance](#Maintenance)
 
-## Analisys
+
+## Analysis
 Specification requirements of the client
 The client has a business idea and wants to implement it
 The client wants to:
