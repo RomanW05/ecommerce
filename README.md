@@ -82,7 +82,7 @@ Diagrams using: https://app.diagrams.net/
 #### Main
 ![Alt text](https://github.com/RomanW05/ecommerce/blob/main/main_flowchart.png "Optional title")
 ![My Image](https://github.com/RomanW05/ecommerce/blob/main/main_flowchart.png)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/main_flowchart.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/main_flowchart.png?raw=true)
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/main_flowchart.png)
 
 #### Checkout
