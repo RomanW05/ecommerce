@@ -65,7 +65,6 @@ Specification requirements of the client. The client has a business idea and wan
 ## Design
 Come up with a plan or algorithm to successfully and efficiently execute the client needs based on the analysis requirements
 
-#### Algorithm
 * User lands on the landing-page
 * Clicks on a product that appeals
 * Selects the correct size and color
@@ -76,3 +75,19 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 * Receives a tracking number via email
 * Checks the status of the tracking number
 * Receives the package
+
+### Flowchart
+Diagrams using: https://app.diagrams.net/
+
+#### Main
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/main_flowchart.png?raw=true)
+
+#### Checkout
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/checkout_flowchart.png?raw=true)
+
+#### Process order
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/process_order_flowchart.png?raw=true)
+
+#### Login
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/login_flowchart.png?raw=true)
+
