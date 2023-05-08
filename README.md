@@ -80,7 +80,7 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 Diagrams using: https://app.diagrams.net/
 
 #### Overview
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/overview.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png?raw=true)
 
 #### Main
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/main_flowchart.png?raw=true)
