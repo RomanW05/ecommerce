@@ -97,11 +97,11 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 #### Login
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/login_flowchart.png?raw=true)
 
-### Technologies
-We are going to need a database to handle
 
 ### Wireframe
-Below are some screenshots of our ecommerce store:
+Below are some screenshots of our ecommerce store. Credit to @waverlylab for the creation of such wireframe (https://www.figma.com/@waverlylab)
+License: ![Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
+No changes were made to the original work
 
 ![Homepage screenshot](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-01.png?raw=true)
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-02.png?raw=true)
@@ -120,10 +120,10 @@ Below are some screenshots of our ecommerce store:
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-15.png?raw=true)
 
 ### Live demo
-
-You can view a live demo of our ecommerce store at [example.com](TBD).
+You can view a live demo of our ecommerce store at [TBD](TBD).
 
 ### Design tools
+We used Figma for our design work. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800). Credit to @waverlylab for the creation of such wireframe 
 
-We used Adobe Photoshop and Figma for our design work. You can view our design files on [Adobe Creative Cloud](https://www.adobe.com/creativecloud.html) and [Figma](https://www.figma.com/).
-
+### Technologies
+We need a database like postgres, a data bus like kafka, an API like FastAPI
