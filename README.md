@@ -76,8 +76,12 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 * Checks the status of the tracking number
 * Receives the package
 
+
+### Wireframe
+<iframe src="https://docs.google.com/viewer?url=[https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe.pdf]&embedded=true" width="100%" height="600px" frameborder="0"></iframe>
+
 ### Flowchart
-Diagrams using: https://app.diagrams.net/
+
 
 #### Overview
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png?raw=true)
@@ -95,3 +99,5 @@ Diagrams using: https://app.diagrams.net/
 #### Login
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/login_flowchart.png?raw=true)
 
+### Technologies
+We are going to need a database to handle
