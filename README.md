@@ -78,27 +78,7 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 * Receives the package
 
 
-### Wireframe
-Below are some screenshots of our ecommerce store:
-
-![Homepage screenshot](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-01.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-02.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-03.png?raw=true)
-![Product page screenshot](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-04.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-05.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-06.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-07.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-08.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-09.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-10.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-11.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-12.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-13.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-14.png?raw=true)
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-15.png?raw=true)
-
 ### Flowchart
-
 
 #### Overview
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png?raw=true)
@@ -119,29 +99,30 @@ Below are some screenshots of our ecommerce store:
 ### Technologies
 We are going to need a database to handle
 
-
-
-
-
-
-### Screenshots
-
+### Wireframe
 Below are some screenshots of our ecommerce store:
 
-![Homepage screenshot](homepage-screenshot.png)
-
-![Product page screenshot](product-page-screenshot.png)
+![Homepage screenshot](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-01.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-02.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-03.png?raw=true)
+![Product page screenshot](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-04.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-05.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-06.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-07.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-08.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-09.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-10.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-11.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-12.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-13.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-14.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-15.png?raw=true)
 
 ### Live demo
 
-You can view a live demo of our ecommerce store at [example.com](https://example.com).
+You can view a live demo of our ecommerce store at [example.com](TBD).
 
 ### Design tools
 
 We used Adobe Photoshop and Figma for our design work. You can view our design files on [Adobe Creative Cloud](https://www.adobe.com/creativecloud.html) and [Figma](https://www.figma.com/).
 
-### Design challenges
-
-One of the main design challenges we faced was creating a responsive design that worked well on both desktop and mobile devices. We overcame this challenge by using a mobile-first design approach and carefully considering the placement and layout of each element on the page.```
-
-Remember that the design section of your `README.md` file should be clear, concise, and provide a good overview of your design process and outcomes.
