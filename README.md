@@ -78,6 +78,7 @@ The Ecommerce Web App follows a modern, microservices-based architecture that pr
 
 The app consists of the following microservices:
 
+* Backend Service: Manages the interactions with the user and displays all the information. Provides the endpoints, APIs and allows interaction
 * Inventory Service: Manages and tracks the inventory levels of each product. Provides operations for updating inventory levels and interacts with the Order Service.
 * Order Service: Manages payments of the order placement and fulfillment process. Provides operations for placing orders, tracking order and status.
 * User Service: Manages user authentication and authorization. Provides operations for registering, logging in, and managing user accounts.
@@ -151,6 +152,5 @@ You can view a live demo of our ecommerce store at [TBD](TBD).
 
 
 ### Design tools
-We used Figma for our design work. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800)
-
+We used Figma for our design work and https://app.diagrams.net for the diagrams overview. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800) and ![Drawio](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio)
 
