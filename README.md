@@ -3,6 +3,8 @@
 ## Life cycle
 + [Analysis and specification requirements](#Analysis)
 + [Design](#Design)
+    - [Flowchart](#Flowchart)
+    - [Wireframe](#Wireframe)
 + [Coding](#Coding)
 + [Testing](#Testing)
 + [Instalation and production](#Installation)
@@ -85,7 +87,6 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 
 #### Main
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/main_flowchart.png?raw=true)
-
 
 #### Checkout
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/checkout_flowchart.png?raw=true)
