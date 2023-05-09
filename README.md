@@ -3,6 +3,7 @@
 ## Life cycle
 + [Analysis and specification requirements](#Analysis)
 + [Design](#Design)
+    - [Architecture](#Architecture)
     - [Flowchart](#Flowchart)
     - [Wireframe](#Wireframe)
 + [Coding](#Coding)
@@ -68,16 +69,33 @@ Specification requirements of the client. The client has a business idea and wan
 The design concept for our ecommerce store is centered around a modern and minimalistic style with a focus on usability and ease of navigation.
 Come up with a plan or algorithm to successfully and efficiently execute the client needs based on the analysis requirements
 
-* User lands on the landing-page
-* Clicks on a product that appeals
-* Selects the correct size and color
-* Adds to cart
-* Clicks on checkout
-* Inserts billing information
-* Pays
-* Receives a tracking number via email
-* Checks the status of the tracking number
-* Receives the package
+### Architecture
+The Ecommerce Web App follows a modern, microservices-based architecture that provides a flexible and scalable platform for online shopping. The app is built using the following technologies:
+
+* FastAPI: A modern, fast, web framework for building APIs with Python. FastAPI provides high performance, automatic validation, and easy-to-use asynchronous support.
+* Kafka: A distributed streaming platform that enables real-time communication between services. Kafka provides scalable and fault-tolerant messaging, making it ideal for building microservices architectures.
+* PostgreSQL: A powerful and reliable relational database management system. PostgreSQL provides a flexible data model, transaction support, and advanced features such as JSON storage and full-text search.
+
+The app consists of the following microservices:
+
+* Inventory Service: Manages and tracks the inventory levels of each product. Provides operations for updating inventory levels and interacts with the Order Service.
+* Order Service: Manages payments of the order placement and fulfillment process. Provides operations for placing orders, tracking order and status.
+* User Service: Manages user authentication and authorization. Provides operations for registering, logging in, and managing user accounts.
+* Marketing Service: Manages marketing campaigns and product discounts. Provides mechanisms for users to benefit from the different companys strategies.
+* Email Service: Manages email sent to a subscribers list. Provides a list of subscribed user to send emails to and keeps track of the sent emails.
+* Analytics Service: Keeps track of all actions in the platform. Provides statistics based on user interactions, consumer behaviour and measures marketing campaigns effectiveness.
+
+Each microservice is built as a separate Python package and runs in its own Docker container. Communication between services is handled through Kafka topics, allowing for scalable and fault-tolerant messaging. The app also includes a gateway service, built with FastAPI, that provides a unified API for clients to interact with the microservices.
+
+Overall, the microservices architecture provides a scalable and flexible platform for building an ecommerce web app, allowing for easy scaling and maintenance of individual components.
+
+
+### Features:
+* User registration and authentication
+* Product catalog with search and filter functionality
+* Shopping cart and checkout process
+* Payment processing and order tracking
+* User dashboard with order history and account settings
 
 
 ### Wireframe
@@ -102,7 +120,19 @@ Below are some screenshots of our ecommerce store
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-14.png?raw=true)
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-15.png?raw=true)
 
+
 ### Flowchart
+* User lands on the landing-page
+* Clicks on a product that appeals
+* Selects the correct size and color
+* Adds to cart
+* Clicks on checkout
+* Inserts billing information
+* Pays
+* Receives a tracking number via email
+* Checks the status of the tracking number
+* Receives the package
+
 
 #### Overview
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png?raw=true)
@@ -119,8 +149,8 @@ Below are some screenshots of our ecommerce store
 ### Live demo
 You can view a live demo of our ecommerce store at [TBD](TBD).
 
-### Design tools
-We used Figma for our design work. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800). Credit to @waverlylab for the creation of such wireframe 
 
-### Technologies
-We need a database like postgres, a data bus like kafka, an API like FastAPI
+### Design tools
+We used Figma for our design work. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800)
+
+
