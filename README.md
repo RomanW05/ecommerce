@@ -80,27 +80,9 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 * Receives the package
 
 
-### Flowchart
-
-#### Overview
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png?raw=true)
-
-#### Main
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/main_flowchart.png?raw=true)
-
-#### Checkout
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/checkout_flowchart.png?raw=true)
-
-#### Process order
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/process_order_flowchart.png?raw=true)
-
-#### Login
-![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/login_flowchart.png?raw=true)
-
-
 ### Wireframe
 Below are some screenshots of our ecommerce store
-- Credit to @waverlylab for the creation of such wireframe (https://www.figma.com/@waverlylab)
+- Credit to [@waverlylab](https://www.figma.com/@waverlylab) for the creation of such wireframe
 - License: [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
 - No changes were made to the original work
 
@@ -119,6 +101,20 @@ Below are some screenshots of our ecommerce store
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-13.png?raw=true)
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-14.png?raw=true)
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-15.png?raw=true)
+
+### Flowchart
+
+#### Overview
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png?raw=true)
+#### Main
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/main_flowchart.png?raw=true)
+#### Checkout
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/checkout_flowchart.png?raw=true)
+#### Process order
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/process_order_flowchart.png?raw=true)
+#### Login
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/login_flowchart.png?raw=true)
+
 
 ### Live demo
 You can view a live demo of our ecommerce store at [TBD](TBD).
