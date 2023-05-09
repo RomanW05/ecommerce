@@ -99,9 +99,10 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 
 
 ### Wireframe
-Below are some screenshots of our ecommerce store. Credit to @waverlylab for the creation of such wireframe (https://www.figma.com/@waverlylab)
-License: ![Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
-No changes were made to the original work
+Below are some screenshots of our ecommerce store
+- Credit to @waverlylab for the creation of such wireframe (https://www.figma.com/@waverlylab)
+- License: [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
+- No changes were made to the original work
 
 ![Homepage screenshot](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-01.png?raw=true)
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-02.png?raw=true)
