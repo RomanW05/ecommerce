@@ -12,7 +12,7 @@
 + [Maintenance](#Maintenance)
 
 
-## Analysis
+## ANALYSIS
 Specification requirements of the client. The client has a business idea and wants to implement it with our services. The client wants to:
 + Provide people with a comfortable way of shopping online
 + Provide suppliers with a comfortable business relationship
@@ -65,7 +65,7 @@ Specification requirements of the client. The client has a business idea and wan
     * 
 
 
-## Design
+## DESIGN
 The design concept for our ecommerce store is centered around a modern and minimalistic style with a focus on usability and ease of navigation.
 Come up with a plan or algorithm to successfully and efficiently execute the client needs based on the analysis requirements
 
@@ -97,6 +97,7 @@ Overall, the microservices architecture provides a scalable and flexible platfor
 * Shopping cart and checkout process
 * Payment processing and order tracking
 * User dashboard with order history and account settings
+* Analytics and marketing modules
 
 
 ### Wireframe
@@ -154,3 +155,16 @@ You can view a live demo of our ecommerce store at [TBD](TBD).
 ### Design tools
 We used Figma for our design work and https://app.diagrams.net for the diagrams overview. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800) and ![Drawio](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio)
 
+
+## CODING
+The actions, planning, design and standards to be used thoughtout the project are to be discussed by the development team. The selected methodology is the Agile due to the flexibility it provides.
+* Code design: In this section we will use the gathered requirements and specifications during the previous phases (Preliminary analysis and features). Based on this understanding, the development team will create a plan for the code's architecture and algorithms to be used. They will define how the different components of the system will interact with each other, and the protocols to be used. The web application will use RESTful APIs to communicate with the database, and Kafka to handle real-time data streaming.
+    - The development team must design the code structure and its functionality. They will create a detailed plan for the code's structure and algorithms to be used. TODO
+
+
+* Coding standards: TODO
+* Implementation: TODO
+* Version control: The tools to organize the work will be Github
+* Code review: TODO after implementation
+* Integration testing: TODO
+* Deployment: TODO
