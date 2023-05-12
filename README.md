@@ -1,6 +1,6 @@
 # This is a showcase of an ecommerce store
 
-## Life cycle
+## Software Development Life cycle (SDLC)
 + [Analysis and specification requirements](#Analysis)
 + [Design](#Design)
     - [Architecture](#Architecture)
