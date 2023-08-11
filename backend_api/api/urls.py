@@ -18,6 +18,7 @@ from django.urls import path
 app_name = 'api'
 
 urlpatterns = [
+    path('home/', views.Home.as_view(), name="home"),
     path('login/', views.Login.as_view(), name="login"),
     path('logout/', views.Logout.as_view(), name="logout"),
     path('register/', views.Register.as_view(), name="register"),
@@ -28,6 +29,7 @@ urlpatterns = [
 
     path('explore/', views.Explore.as_view(), name="explore"),
     path('product/<pk:id>', views.Product.as_view(), name="product"),
+    path('product_image/<pk:id>', views.ProductImage.as_view(), name="product image"),
 
     path('cart/', views.Product.as_view(), name="cart"),
     path('checkout/', views.Checkout.as_view(), name="checkout"),
