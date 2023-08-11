@@ -72,7 +72,7 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 ### Architecture
 The Ecommerce Web App follows a modern, microservices-based architecture that provides a flexible and scalable platform for online shopping. The app is built using the following technologies:
 
-* FastAPI: A modern, fast, web framework for building APIs with Python. FastAPI provides high performance, automatic validation, and easy-to-use asynchronous support.
+* Django: A modern, fast, web framework for building APIs with Python. Django provides high performance, validation, and easy-to-use asynchronous support.
 * Kafka: A distributed streaming platform that enables real-time communication between services. Kafka provides scalable and fault-tolerant messaging, making it ideal for building microservices architectures.
 * PostgreSQL: A powerful and reliable relational database management system. PostgreSQL provides a flexible data model, transaction support, and advanced features such as JSON storage and full-text search.
 
@@ -167,3 +167,39 @@ The actions, planning, design and standards to be used thoughtout the project ar
 * Code review: TODO after implementation
 * Integration testing: TODO
 * Deployment: TODO
+
+* Each microservice consists of a Django project with an application to handle incoming and outcoming data
+* The backend is arranged providing the following endpoints:
+    #### API (handles all requests and delegates):
+        - New user registration
+        - Login
+        - Verify OTP
+        - Logout
+        - New order
+        - New subscriber
+        - Profile page
+        - Explore
+        - View product
+        - Cart
+        - Process payment
+        - Verify payment
+    #### Users:
+        - Registers new user
+        - Login user
+        - Verifies OTP
+        - Profile page
+    #### Orders:
+        - Process payments
+        - Verify payments
+        - Updates inventory
+        - Stores payment
+        - Updates order status
+    #### Marketing:
+        - New campaign
+        - Updates campaing
+    #### Analytics:
+        - Stores user movement
+    #### Inventory
+        - Updates inventory
+        - Reads inventory status
+        - Generates shipping tracking status
