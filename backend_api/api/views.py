@@ -9,6 +9,10 @@ from rest_framework_simplejwt.tokens import BlacklistMixin
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+import json
+from kafka import KafkaConsumer, KafkaProducer
+import pickle
+
 
 from .authentication import HasRestrictedScope, HasFullScope, IsWhitelisted
 from .serializer import RegisterSerializer, RestrictedAccessSerializer, OTPSerializer, DeleteUserSerializer
@@ -25,6 +29,23 @@ path('cart/', views.Product.as_view(), name="cart"),
 path('checkout/', views.Checkout.as_view(), name="checkout"),
 path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 """
+def kafka_produce(request):   
+    producer = KafkaProducer(bootstrap_servers='127.0.0.1:9092')
+    v = {
+        'msg': {
+            'hello': 'world',
+        },
+    }
+    serialized_data = pickle.dumps(v, pickle.HIGHEST_PROTOCOL)
+    producer.send('Ptopic', serialized_data)
+    return HttpResponse(200)
+
+
+class Home(generics.ListCreateAPIView):
+    def get(self, request):
+        return Response(status=status.HTTP_200_OK)
+
+
 
 class Register(generics.ListCreateAPIView):
     serializer_class = RegisterSerializer
