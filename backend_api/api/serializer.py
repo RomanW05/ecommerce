@@ -171,4 +171,4 @@ class DeleteUserSerializer(serializers.ModelSerializer):
         user.delete()
         return True
 
-
+ 
