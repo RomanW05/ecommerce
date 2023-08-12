@@ -29,20 +29,20 @@ path('cart/', views.Product.as_view(), name="cart"),
 path('checkout/', views.Checkout.as_view(), name="checkout"),
 path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 """
-def kafka_produce(request):   
-    producer = KafkaProducer(bootstrap_servers='127.0.0.1:9092')
-    v = {
-        'msg': {
-            'hello': 'world',
-        },
-    }
-    serialized_data = pickle.dumps(v, pickle.HIGHEST_PROTOCOL)
-    producer.send('Ptopic', serialized_data)
-    return HttpResponse(200)
+
+
+def kafka_produce(request, topic):   
+    producer = KafkaProducer(bootstrap_servers='0.0.0.0:9092')
+    message = request
+    serialized_data = pickle.dumps(message, pickle.HIGHEST_PROTOCOL)
+    producer.send(topic, serialized_data)
+    return status.HTTP_202_ACCEPTED
 
 
 class Home(generics.ListCreateAPIView):
     def get(self, request):
+        topic = 'analytics'
+        kafka_produce(request, topic)
         return Response(status=status.HTTP_200_OK)
 
 
