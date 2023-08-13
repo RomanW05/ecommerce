@@ -2,7 +2,7 @@
 from configparser import ConfigParser
 
 
-def email_config(filename='django_api/credentials.ini', section='email'):
+def email_config(filename='backend_api/credentials.ini', section='email'):
     # create a parser
     parser = ConfigParser()
     # read config file
@@ -20,7 +20,7 @@ def email_config(filename='django_api/credentials.ini', section='email'):
     return data
 
 
-def api_config(filename='django_api/credentials.ini', section='api'):
+def api_config(filename='backend_api/credentials.ini', section='api'):
     # create a parser
     parser = ConfigParser()
     # read config file
