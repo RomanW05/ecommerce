@@ -1,11 +1,11 @@
 FROM python:3
 
-COPY .requirements.txt /backend_user/requirements.txt
+COPY /backend_orders/requirements.txt /backend_orders/requirements.txt
 
-WORKDIR /backend_user
+WORKDIR /backend_orders
 
 RUN pip3 install -r requirements.txt
 
-COPY . /api
+COPY /backend_orders /backend_orders
 
-CMD ["python", "kafka_consumer.py" ]
+CMD ["python", "kafka_consume.py" ]

@@ -10,7 +10,7 @@ from rest_framework_simplejwt.tokens import BlacklistMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import json
-from kafka import KafkaConsumer, KafkaProducer
+# from kafka import KafkaConsumer, KafkaProducer
 import pickle
 
 
@@ -32,21 +32,26 @@ path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 from confluent_kafka import Producer
 import socket
 
+conf = {'bootstrap.servers': "127.0.0.1:9092",
+        'client.id': socket.gethostname()}
+
+producer = Producer(conf)
+
 
 
 # producer.produce(topic, key="key", value="value")
 def kafka_produce(request, topic):
-    # conf = {'bootstrap.servers': "host1:9092,host2:9092",
-    #     'client.id': socket.gethostname()}
-    # producer = Producer(conf)
-    producer = KafkaProducer(bootstrap_servers='localhost:9092')
-    message = request
-    serialized_data = pickle.dumps(message, pickle.HIGHEST_PROTOCOL)
-    producer.send(topic, serialized_data)
-    return status.HTTP_202_ACCEPTED
+
+    # producer = KafkaProducer(bootstrap_servers='localhost:9092')
+    # message = request
+    # serialized_data = pickle.dumps(message, pickle.HIGHEST_PROTOCOL)
+    # producer.send(topic, serialized_data)
+    # return status.HTTP_202_ACCEPTED
+    topic = 'analytics'
+    producer.produce(topic, key="key", value="value")
 
 
-class Home(generics.ListCreateAPIView):
+class Home(APIView):
     def get(self, request):
         topic = 'analytics'
         kafka_produce(request, topic)
