@@ -29,10 +29,17 @@ path('cart/', views.Product.as_view(), name="cart"),
 path('checkout/', views.Checkout.as_view(), name="checkout"),
 path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 """
+from confluent_kafka import Producer
+import socket
 
 
-def kafka_produce(request, topic):   
-    producer = KafkaProducer(bootstrap_servers='0.0.0.0:9092')
+
+# producer.produce(topic, key="key", value="value")
+def kafka_produce(request, topic):
+    # conf = {'bootstrap.servers': "host1:9092,host2:9092",
+    #     'client.id': socket.gethostname()}
+    # producer = Producer(conf)
+    producer = KafkaProducer(bootstrap_servers='localhost:9092')
     message = request
     serialized_data = pickle.dumps(message, pickle.HIGHEST_PROTOCOL)
     producer.send(topic, serialized_data)
