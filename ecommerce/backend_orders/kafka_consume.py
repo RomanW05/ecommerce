@@ -1,15 +1,17 @@
 from confluent_kafka import Consumer
-
 conf = {'bootstrap.servers': "kafka1:19091",
-        'group.id': "analytics",
+        'group.id': "my-group",
         'auto.offset.reset': 'smallest'}
+
+
 
 consumer = Consumer(conf)
 consumer.subscribe(['analytics'])
 
 
-while True:
 
+
+while True:
     msg = consumer.poll(1.0)
 
     if msg is None:

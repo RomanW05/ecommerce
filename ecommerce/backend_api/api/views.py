@@ -30,25 +30,20 @@ path('checkout/', views.Checkout.as_view(), name="checkout"),
 path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 """
 from confluent_kafka import Producer
-# import socket
-
-
-
-
 
 
 def kafka_produce(producer, topic, data):
-    producer.poll(0)
+    producer.poll(0.0)
     producer.produce(topic, data.encode('utf-8'))
     producer.flush()
     print('message sent')
-    
+
+
 
 
 
 class Home(APIView):
     def get(self, request):
-        
         topic = 'analytics'
         data = "hello world"
         kafka_producer = Producer({'bootstrap.servers': 'kafka1:19091'})

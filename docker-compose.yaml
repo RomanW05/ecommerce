@@ -31,6 +31,10 @@ services:
             - ./data/kafka1/data:/var/lib/kafka/data
         depends_on:
             - zookeeper
+        
+    
+
+
     
 
 
@@ -45,6 +49,9 @@ services:
 
 
     backend_orders:
+        stdin_open: true # docker run -i
+        tty: true        # docker run -t
+        restart: always
         build:
             dockerfile: ./ecommerce/backend_orders/Dockerfile
         ports:
@@ -54,10 +61,13 @@ services:
             - kafka1
     
     backend_api:
+        restart: always
         build:
             dockerfile: ./ecommerce/backend_api/Dockerfile
         ports:
             - "8000:8000"
+        stdin_open: true # docker run -i
+        tty: true        # docker run -t
         command: "python3 manage.py runserver 0.0.0.0:8000"
         depends_on:
             - zookeeper
