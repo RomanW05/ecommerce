@@ -1,4 +1,5 @@
 from confluent_kafka import Consumer
+import json
 import pickle
 
 
@@ -15,7 +16,15 @@ while True:
     if msg.error():
         print("Consumer error: ", pickle.loads(msg.value()))
         continue
-
-    message = pickle.loads(msg.value())
-    print('message received:', message)
-    print(type(message))  # type dictionary
+    
+    try:
+        message = pickle.loads(msg.value())  # type dictionary
+        print('message received:', message)
+    except Exception as e:
+        print('error parsing data with picke.loads', e)
+        try:
+            message = json.loads(msg.value())  # type dictionary
+            message = json.dumps(message)
+            print(message)
+        except Exception as e:
+            print('json error parsing', e)

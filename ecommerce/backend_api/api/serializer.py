@@ -12,6 +12,7 @@ import json
 import pyotp
 
 from .config import otp_config
+from. custom_validators import char_validator
 from .models import User
 from .send_email import send_otp
 
@@ -21,35 +22,38 @@ SECRET_KEY = SECRET_DATA['secret']
 SECRET_KEY_ENCODED = base64.b32encode(SECRET_KEY.encode()).decode()
 
 
-class RequestSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
-    username = serializers.CharField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
-    password = serializers.CharField(required=True, min_length=3, write_only=True)
+class RequestSerializer(serializers.Serializer):
     GATEWAY_INTERFACE = serializers.CharField(max_length=15)
-    SERVER_PORT = serializers.CharField(max_length=15)
-    REMOTE_HOST = serializers.CharField(max_length=15)
-    CONTENT_LENGTH = serializers.CharField(max_length=15)
-    SCRIPT_NAME = serializers.CharField(max_length=15)
+    SERVER_PORT = serializers.IntegerField()
+    REMOTE_HOST = serializers.IntegerField()
+    CONTENT_LENGTH = serializers.IntegerField()
+    SCRIPT_NAME = serializers.CharField(max_length=255)
     SERVER_PROTOCOL = serializers.CharField(max_length=15)
     SERVER_SOFTWARE = serializers.CharField(max_length=15)
     REQUEST_METHOD = serializers.CharField(max_length=15)
-    PATH_INFO = serializers.CharField(max_length=15)
-    QUERY_STRING = serializers.CharField(max_length=15)
+    PATH_INFO = serializers.CharField(max_length=255)
+    QUERY_STRING = serializers.CharField()
     REMOTE_ADDR = serializers.CharField(max_length=15)
-    CONTENT_TYPE = serializers.CharField(max_length=15)
-    HTTP_HOST = serializers.CharField(max_length=15)
-    HTTP_USER_AGENT = serializers.CharField(max_length=15)
-    HTTP_ACCEPT = serializers.CharField(max_length=15)
-    HTTP_ACCEPT_LANGUAGE = serializers.CharField(max_length=15)
-    HTTP_ACCEPT_ENCODING = serializers.CharField(max_length=15)
-    HTTP_DNT = serializers.CharField(max_length=15)
-    HTTP_CONNECTION = serializers.CharField(max_length=15)
-    HTTP_COOKIE = serializers.CharField(max_length=15)
-    HTTP_UPGRADE_INSECURE_REQUESTS = serializers.CharField(max_length=15)
-    HTTP_SEC_FETCH_DEST = serializers.CharField(max_length=15)
-    HTTP_SEC_FETCH_MODE = serializers.CharField(max_length=15)
-    HTTP_SEC_FETCH_SITE = serializers.CharField(max_length=15)
-    HTTP_SEC_FETCH_USER = serializers.CharField(max_length=15)
+    CONTENT_TYPE = serializers.CharField(max_length=127)
+    HTTP_HOST = serializers.CharField(max_length=127)
+    HTTP_USER_AGENT = serializers.CharField(max_length=255)
+    HTTP_ACCEPT = serializers.CharField(max_length=127)
+    HTTP_ACCEPT_LANGUAGE = serializers.CharField(max_length=63)
+    HTTP_ACCEPT_ENCODING = serializers.CharField(max_length=63)
+    HTTP_DNT = serializers.CharField(max_length=127)
+    HTTP_CONNECTION = serializers.CharField(max_length=127)
+    HTTP_COOKIE = serializers.CharField(max_length=65)
+    HTTP_UPGRADE_INSECURE_REQUESTS = serializers.CharField(max_length=65)
+    HTTP_SEC_FETCH_DEST = serializers.CharField(max_length=65)
+    HTTP_SEC_FETCH_MODE = serializers.CharField(max_length=65)
+    HTTP_SEC_FETCH_SITE = serializers.CharField(max_length=255)
+    HTTP_SEC_FETCH_USER = serializers.CharField(max_length=127)
+
+
+    def validate(self, attrs):
+
+        return
+
 
 class RestrictedAccessSerializer(TokenObtainPairSerializer):
     password = serializers.CharField(max_length=68, min_length=3,write_only=True)
