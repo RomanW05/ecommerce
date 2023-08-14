@@ -7,15 +7,14 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTTokenUserAuthentication, JWTAuthentication
 from rest_framework_simplejwt.tokens import BlacklistMixin
 
+from confluent_kafka import Producer
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import json
-# from kafka import KafkaConsumer, KafkaProducer
 import pickle
 
-
 from .authentication import HasRestrictedScope, HasFullScope, IsWhitelisted
-from .functions import create_request_meta_json_object
+from .functions import create_request_meta_json_object, kafka_send_message
 from .serializer import RegisterSerializer, RestrictedAccessSerializer, OTPSerializer, DeleteUserSerializer
 
 """
@@ -31,28 +30,19 @@ path('cart/', views.Product.as_view(), name="cart"),
 path('checkout/', views.Checkout.as_view(), name="checkout"),
 path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 """
-from confluent_kafka import Producer
 
 
-def kafka_send_message(producer, topic, data):
-    producer.poll(0.0)
-    producer.produce(topic, data)
-    producer.flush()
-    print('message sent')
-
-
-
+kafka_producer = Producer({'bootstrap.servers': 'kafka1:19091'})
 
 
 class Home(APIView):
     def get(self, request):
-        topic = 'analytics'
-        # data = "hello world"
-        kafka_producer = Producer({'bootstrap.servers': 'kafka1:19091'})
+        topic = 'analytics'       
         serialized_request = create_request_meta_json_object(request.META)
-        # kafka_send_message(kafka_producer, topic, pickle.dumps(serialized_request))
-        kafka_send_message(kafka_producer, topic, pickle.dumps(serialized_request))
+        data = {"request_headers": request.headers, "request_body":serialized_request}
+        kafka_send_message(kafka_producer, topic, pickle.dumps(data))
         return Response(status=status.HTTP_200_OK)
+
 
 class Index(APIView):
     def get(self, request):

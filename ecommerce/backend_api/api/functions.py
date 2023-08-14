@@ -24,5 +24,12 @@ def create_request_meta_json_object(meta_data):
         'HTTP_SEC_FETCH_DEST': meta_data['HTTP_SEC_FETCH_DEST'],
         'HTTP_SEC_FETCH_MODE': meta_data['HTTP_SEC_FETCH_MODE'],
         'HTTP_SEC_FETCH_SITE': meta_data['HTTP_SEC_FETCH_SITE'],
-        'HTTP_SEC_FETCH_USER': meta_data['HTTP_SEC_FETCH_USER']
+        'HTTP_SEC_FETCH_USER': meta_data['HTTP_SEC_FETCH_USER'],
     }
+
+
+def kafka_send_message(producer, topic, data):
+    producer.poll(0.0)
+    producer.produce(topic, data)
+    producer.flush()
+    print('message sent')
