@@ -30,48 +30,35 @@ path('checkout/', views.Checkout.as_view(), name="checkout"),
 path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 """
 from confluent_kafka import Producer
-import socket
-
-
-bootstrap_servers = ['localhost:9091', 'localhost:9092', 'localhost:9093']
-# producer = Producer(bootstrap_servers = bootstrap_servers)
-
-# producer = Producer()
-
-conf = {'bootstrap.servers': "127.0.0.1:9092",
-        'client.id': socket.gethostname()}
-
-producer = Producer(conf)
-# producer = Producer()
+# import socket
 
 
 
 
-# producer.produce(topic, key="key", value="value")
-def kafka_produce(producer, topic):
 
-    # producer = KafkaProducer(bootstrap_servers='localhost:9092')
-    # message = request
-    # serialized_data = pickle.dumps(message, pickle.HIGHEST_PROTOCOL)
-    # producer.send(topic, serialized_data)
-    # return status.HTTP_202_ACCEPTED
-    # bootstrap_servers = ['localhost:9091', 'localhost:9092', 'localhost:9093']
-    print('getting ready to produce')
-    topic = 'analytics'
-    
-    producer.produce(topic, b'Hello World!')
+
+def kafka_produce(producer, topic, data):
+    producer.poll(0)
+    producer.produce(topic, data.encode('utf-8'))
     producer.flush()
     print('message sent')
-    # producer.produce(topic, key="key", value="value")
+    
+
 
 
 class Home(APIView):
     def get(self, request):
+        
         topic = 'analytics'
-        kafka_produce(producer, topic)
+        data = "hello world"
+        kafka_producer = Producer({'bootstrap.servers': 'kafka1:19091'})
+        kafka_produce(kafka_producer, topic, data)
         return Response(status=status.HTTP_200_OK)
 
-
+class Index(APIView):
+    def get(self, request):
+        return Response(status=status.HTTP_200_OK)
+    
 
 # class Register(generics.ListCreateAPIView):
 #     serializer_class = RegisterSerializer
