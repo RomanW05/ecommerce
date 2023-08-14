@@ -92,7 +92,7 @@ services:
     
     backend_api:
         build:
-            dockerfile: ./ecommerce/backend_api/django_proyect/Dockerfile
+            dockerfile: ./ecommerce/backend_api/Dockerfile
         ports:
             - "8000:8000"
             - "9092:9092"
