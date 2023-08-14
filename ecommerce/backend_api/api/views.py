@@ -15,7 +15,9 @@ import pickle
 
 
 from .authentication import HasRestrictedScope, HasFullScope, IsWhitelisted
+from .functions import create_request_meta_json_object
 from .serializer import RegisterSerializer, RestrictedAccessSerializer, OTPSerializer, DeleteUserSerializer
+
 """
 path('home/', views.Home.as_view(), name="home"),
 
@@ -32,9 +34,9 @@ path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 from confluent_kafka import Producer
 
 
-def kafka_produce(producer, topic, data):
+def kafka_send_message(producer, topic, data):
     producer.poll(0.0)
-    producer.produce(topic, data.encode('utf-8'))
+    producer.produce(topic, data)
     producer.flush()
     print('message sent')
 
@@ -45,9 +47,11 @@ def kafka_produce(producer, topic, data):
 class Home(APIView):
     def get(self, request):
         topic = 'analytics'
-        data = "hello world"
+        # data = "hello world"
         kafka_producer = Producer({'bootstrap.servers': 'kafka1:19091'})
-        kafka_produce(kafka_producer, topic, data)
+        serialized_request = create_request_meta_json_object(request.META)
+        # kafka_send_message(kafka_producer, topic, pickle.dumps(serialized_request))
+        kafka_send_message(kafka_producer, topic, pickle.dumps(serialized_request))
         return Response(status=status.HTTP_200_OK)
 
 class Index(APIView):
