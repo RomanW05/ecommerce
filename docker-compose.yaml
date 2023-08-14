@@ -85,14 +85,14 @@ services:
 
     backend_orders:
         build:
-            dockerfile: ./backend_orders/Dockerfile
+            dockerfile: ./ecommerce/backend_orders/Dockerfile
         ports:
             - "8001:8001"
             - "9091:9091"
     
     backend_api:
         build:
-            dockerfile: ./backend_api/django_proyect/Dockerfile
+            dockerfile: ./ecommerce/backend_api/django_proyect/Dockerfile
         ports:
             - "8000:8000"
             - "9092:9092"
@@ -103,3 +103,6 @@ services:
 
 
 
+    personal_website:
+        build:
+            dockerfile: ./personal_website/Dockerfile
