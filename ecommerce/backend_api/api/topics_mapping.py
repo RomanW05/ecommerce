@@ -1,6 +1,3 @@
-
-
-
 def assing_topic(request):
     method = request.META['REQUEST_METHOD']
     url = request.META['PATH_INFO']
@@ -14,3 +11,5 @@ def assing_topic(request):
             return 'analytics'
         case '/api/home/DELETE':
             return 'analytics'
+    
+    return 'analytics'

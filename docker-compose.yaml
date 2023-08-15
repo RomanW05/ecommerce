@@ -48,12 +48,12 @@ services:
 
 
 
-    backend_orders:
+    backend_analytics:
         stdin_open: true # docker run -i
         tty: true        # docker run -t
         restart: always
         build:
-            dockerfile: ./ecommerce/backend_orders/Dockerfile
+            dockerfile: ./ecommerce/backend_analytics/Dockerfile
         ports:
             - "8001:8001"
         depends_on:

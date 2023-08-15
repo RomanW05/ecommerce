@@ -42,7 +42,6 @@ class Home(APIView):
     def get(self, request):
         topic = assing_topic(request)
         data = extract_request_data(request)
-        print(data, request.META)
         serializer = self.serializer_class(data=data)
         if serializer.is_valid():
             kafka_send_message(kafka_producer, topic, json.dumps(serializer.data))
