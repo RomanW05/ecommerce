@@ -51,7 +51,6 @@ class RequestSerializer(serializers.Serializer):
 
 
     def validate(self, attrs):
-
         return
 
 

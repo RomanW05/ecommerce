@@ -14,7 +14,7 @@ while True:
     if msg is None:
         continue
     if msg.error():
-        print("Consumer error: ", pickle.loads(msg.value()))
+        print("Consumer error: ", json.loads(msg.value()))
         continue
     
     try:

@@ -169,7 +169,7 @@ The actions, planning, design and standards to be used thoughtout the project ar
 * Deployment: TODO
 
 * Each microservice consists of a Django project with an application to handle incoming and outcoming data
-* The backend is arranged providing the following endpoints:
+* Backend microservices are arranged providing the following endpoints:
     #### API (handles all requests and delegates):
         - New user registration
         - Login
@@ -198,7 +198,8 @@ The actions, planning, design and standards to be used thoughtout the project ar
         - New campaign
         - Updates campaing
     #### Analytics:
-        - Stores user movement
+        - Stores user movements
+        - Draws conclutions
     #### Inventory
         - Updates inventory
         - Reads inventory status

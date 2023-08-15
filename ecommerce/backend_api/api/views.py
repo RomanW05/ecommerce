@@ -37,15 +37,17 @@ kafka_producer = Producer({'bootstrap.servers': 'kafka1:19091'})
 
 class Home(APIView):
     serializer_class = RequestSerializer
+    topic = 'analytics'
 
-    def get(self, request):
+    def get(self, request, topic):
         request_dictionary = create_request_meta_json_object(request.META)
-        serializer = self.serializer_class(data=request_dictionary)
-        if not serializer.is_valid():
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        topic = 'analytics'
+        # serializer = self.serializer_class(data=request_dictionary)
+        # if not serializer.is_valid():
+        #     return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+        print(type(request.headers), 'request.headers', request.headers)
         data = {"request_headers": request.headers, "request_body":request_dictionary}
-        kafka_send_message(kafka_producer, topic, pickle.dumps(data))
+        kafka_send_message(kafka_producer, topic, json.dumps(data))
         return Response(status=status.HTTP_200_OK)
 
 
