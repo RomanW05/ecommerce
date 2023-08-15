@@ -23,35 +23,28 @@ SECRET_KEY_ENCODED = base64.b32encode(SECRET_KEY.encode()).decode()
 
 
 class RequestSerializer(serializers.Serializer):
-    GATEWAY_INTERFACE = serializers.CharField(max_length=15)
-    SERVER_PORT = serializers.IntegerField()
-    REMOTE_HOST = serializers.IntegerField()
-    CONTENT_LENGTH = serializers.IntegerField()
-    SCRIPT_NAME = serializers.CharField(max_length=255)
-    SERVER_PROTOCOL = serializers.CharField(max_length=15)
-    SERVER_SOFTWARE = serializers.CharField(max_length=15)
-    REQUEST_METHOD = serializers.CharField(max_length=15)
-    PATH_INFO = serializers.CharField(max_length=255)
-    QUERY_STRING = serializers.CharField()
-    REMOTE_ADDR = serializers.CharField(max_length=15)
-    CONTENT_TYPE = serializers.CharField(max_length=127)
-    HTTP_HOST = serializers.CharField(max_length=127)
-    HTTP_USER_AGENT = serializers.CharField(max_length=255)
-    HTTP_ACCEPT = serializers.CharField(max_length=127)
-    HTTP_ACCEPT_LANGUAGE = serializers.CharField(max_length=63)
-    HTTP_ACCEPT_ENCODING = serializers.CharField(max_length=63)
-    HTTP_DNT = serializers.CharField(max_length=127)
-    HTTP_CONNECTION = serializers.CharField(max_length=127)
-    HTTP_COOKIE = serializers.CharField(max_length=65)
-    HTTP_UPGRADE_INSECURE_REQUESTS = serializers.CharField(max_length=65)
-    HTTP_SEC_FETCH_DEST = serializers.CharField(max_length=65)
-    HTTP_SEC_FETCH_MODE = serializers.CharField(max_length=65)
-    HTTP_SEC_FETCH_SITE = serializers.CharField(max_length=255)
-    HTTP_SEC_FETCH_USER = serializers.CharField(max_length=127)
+    host = serializers.CharField()
+    user_agent = serializers.CharField()
+    accept_language = serializers.CharField()
+    cookie = serializers.CharField()
+    request_method = serializers.CharField()
 
 
     def validate(self, attrs):
-        return
+        host = attrs['host'],
+        user_agent = attrs['user_agent'],
+        accept_language = attrs['accept_language'],
+        cookie = attrs['cookie'],
+        request_method = attrs['request_method'],
+
+        return {
+            "host":host,
+            "user_agent":user_agent,
+            "accept_language":accept_language,
+            "cookie":cookie,
+            "request_method":request_method,
+        }
+        
 
 
 class RestrictedAccessSerializer(TokenObtainPairSerializer):

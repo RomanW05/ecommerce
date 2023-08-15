@@ -14,8 +14,9 @@ import json
 import pickle
 
 from .authentication import HasRestrictedScope, HasFullScope, IsWhitelisted
-from .functions import create_request_meta_json_object, kafka_send_message
+from .functions import extract_request_data, kafka_send_message
 from .serializer import RequestSerializer, RegisterSerializer, RestrictedAccessSerializer, OTPSerializer, DeleteUserSerializer
+from .topics_mapping import assing_topic
 
 """
 path('home/', views.Home.as_view(), name="home"),
@@ -37,18 +38,18 @@ kafka_producer = Producer({'bootstrap.servers': 'kafka1:19091'})
 
 class Home(APIView):
     serializer_class = RequestSerializer
-    topic = 'analytics'
 
-    def get(self, request, topic):
-        request_dictionary = create_request_meta_json_object(request.META)
-        # serializer = self.serializer_class(data=request_dictionary)
-        # if not serializer.is_valid():
-        #     return Response(status=status.HTTP_400_BAD_REQUEST)
-        
-        print(type(request.headers), 'request.headers', request.headers)
-        data = {"request_headers": request.headers, "request_body":request_dictionary}
-        kafka_send_message(kafka_producer, topic, json.dumps(data))
-        return Response(status=status.HTTP_200_OK)
+    def get(self, request):
+        topic = assing_topic(request)
+        data = extract_request_data(request)
+        print(data, request.META)
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid():
+            kafka_send_message(kafka_producer, topic, json.dumps(serializer.data))
+            return Response(status=status.HTTP_200_OK)
+        else:
+            print(serializer.error_messages)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class Index(APIView):
