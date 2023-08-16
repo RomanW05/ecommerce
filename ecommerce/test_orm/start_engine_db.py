@@ -39,8 +39,8 @@ engine = create_engine("sqlite://", echo=True)
 Base.metadata.create_all(engine)
 
 
+# Create
 from sqlalchemy.orm import Session
-
 with Session(engine) as session:
     spongebob = User(
         name="spongebob",
@@ -56,7 +56,36 @@ with Session(engine) as session:
         ],
     )
     patrick = User(name="patrick", fullname="Patrick Star")
-
     session.add_all([spongebob, sandy, patrick])
-
     session.commit()
+
+# Select
+from sqlalchemy import select
+session = Session(engine)
+stmt = select(User).where(User.name.in_(["spongebob", "sandy"]))
+for user in session.scalars(stmt):
+    print(user)
+
+# Select with join
+stmt = (
+    select(Address)
+    .join(Address.user)
+    .where(User.name == "sandy")
+    .where(Address.email_address == "sandy@sqlalchemy.org")
+)
+sandy_address = session.scalars(stmt).one()
+
+# Update
+stmt = select(User).where(User.name == "patrick")
+patrick = session.scalars(stmt).one()
+patrick.addresses.append(Address(email_address="patrickstar@sqlalchemy.org"))
+sandy_address.email_address = "sandy_cheeks@sqlalchemy.org"
+session.commit()
+
+# Delete
+sandy = session.get(User, 2)
+sandy.addresses.remove(sandy_address)
+session.flush()
+
+session.delete(patrick)
+session.commit()
