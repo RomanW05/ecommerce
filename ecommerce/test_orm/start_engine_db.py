@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from typing import List
 from typing import Optional
 from sqlalchemy import ForeignKey
-from sqlalchemy import String
+from sqlalchemy import String, Integer
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
@@ -13,8 +13,19 @@ class Base(DeclarativeBase):
     pass
 
 class User(Base):
-    __tablename__ = "user_account"
+    __tablename__ = "user"
+
     id: Mapped[int] = mapped_column(primary_key=True)
+    username = mapped_column(Integer)
+    password = mapped_column(String(30))
+    name = mapped_column(String(30))
+    surname = mapped_column(String(30))
+    phone = mapped_column(String(30))
+    email = mapped_column(String(30))
+    fk_address_id = mapped_column(ForeignKey("address.id"))
+
+
+
     name: Mapped[str] = mapped_column(String(30))
     fullname: Mapped[Optional[str]]
     addresses: Mapped[List["Address"]] = relationship(
@@ -23,15 +34,24 @@ class User(Base):
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, name={self.name!r}, fullname={self.fullname!r})"
 
+
 class Address(Base):
     __tablename__ = "address"
     id: Mapped[int] = mapped_column(primary_key=True)
     email_address: Mapped[str]
-    user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     user: Mapped["User"] = relationship(back_populates="addresses")
 
     def __repr__(self) -> str:
         return f"Address(id={self.id!r}, email_address={self.email_address!r})"
+
+
+
+
+
+
+
+
 
 
 engine = create_engine("sqlite://", echo=True)
