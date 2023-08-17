@@ -41,17 +41,17 @@ class Home(APIView):
     serializer_class = RequestSerializer
 
     def get(self, request):
-        print(request.headers,'\n\n\n', request.META,'\n\n\n')
+        # print(request.headers,'\n\n\n', request.META,'\n\n\n')
 
         topic = assing_topic(request)
         data = extract_request_data(request)
-        print(data, 'data')
+        # print(data, 'data')
         serializer = self.serializer_class(data=data)
         if serializer.is_valid():
             kafka_send_message(kafka_producer, topic, json.dumps(serializer.data))
             return Response(status=status.HTTP_200_OK)
         else:
-            print('custom error:', serializer.error_messages)
+            print('Acustom error:', serializer.error_messages)
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 

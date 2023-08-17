@@ -34,8 +34,9 @@ def get_client_ip(request):
 
 def system_detection(request):
     user_agent = request.headers['User-Agent']
-    os = httpagentparser.detect(user_agent)["os"]
-    return os
+    os_dict = httpagentparser.detect(user_agent)["os"]
+    os_str = f'{os_dict["name"]} {os_dict["version"]}'
+    return os_str
 
 
 def url_method(request):
