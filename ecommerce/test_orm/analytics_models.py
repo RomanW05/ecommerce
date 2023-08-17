@@ -16,7 +16,7 @@ class Base(DeclarativeBase):
 
 class Analytics(Base):
     __tablename__ = "analytics"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     ip = mapped_column(String(30))
     timestamp = mapped_column(String(30))
     page_request = mapped_column(String(30))
@@ -28,25 +28,25 @@ class Analytics(Base):
 
 class Pages(Base):
     __tablename__ = "page"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name = mapped_column(String(30))
 
 
 
 class Clicks(Base):
     __tablename__ = "click"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     fk_page_id = mapped_column(ForeignKey("page.id"))
     action = mapped_column(String(30))
 
 
 class OS(Base):
     __tablename__ = "os"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name = mapped_column(String(30))
 
 
 class Browsers(Base):
     __tablename__ = "browser"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name = mapped_column(String(30))

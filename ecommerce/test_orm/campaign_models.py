@@ -15,7 +15,7 @@ class Base(DeclarativeBase):
 
 class CampaignPerformance(Base):
     __tablename__ = "campaign_performance"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     fk_user_id = mapped_column(ForeignKey("user.id"))
     fk_marketing_campaign_id = mapped_column(ForeignKey("marketing_campaign.id"))
     timestamp = mapped_column(String(30))
@@ -25,7 +25,7 @@ class CampaignPerformance(Base):
 
 class MarketingCampaign(Base):
     __tablename__ = "marketing_campaign"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     fk_user_id = mapped_column(ForeignKey("user.id"))
     name = mapped_column(String(30))
     status = mapped_column(String(30))
@@ -34,7 +34,7 @@ class MarketingCampaign(Base):
 
 class CampaignDesigns(Base):
     __tablename__ = "campaign_design"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     html_design = mapped_column(String(30))
     plain_design = mapped_column(String(30))
 

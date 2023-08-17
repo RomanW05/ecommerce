@@ -15,7 +15,7 @@ class Base(DeclarativeBase):
 
 class GlobalOrder(Base):
     __tablename__ = "global_order"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     price = mapped_column(Float)
     fk_single_orders: Mapped[List["SingleOrders"]] = relationship(
         back_populates="global_order", cascade="all"
@@ -30,24 +30,17 @@ class GlobalOrder(Base):
 
 class SingleOrders(Base):
     __tablename__ = "single_order"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     quantity = mapped_column(Integer)
     fk_product_id = mapped_column(ForeignKey("product.id"))
     fk_price_id = mapped_column(ForeignKey("product.price"))
     fk_discount_id = mapped_column(ForeignKey("discount.id"))
 
 
-# class Payments(Base):
-#     __tablename__ = "payment"
-#     id: Mapped[int] = mapped_column(primary_key=True)
-#     name = mapped_column(String(30))
-
-
 class PaymentMethods(Base):
     __tablename__ = "payment_method"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     fk_user_id = mapped_column(ForeignKey("user.id"))
-    full_name  = mapped_column(ForeignKey("user.name")) + mapped_column(ForeignKey("user.surname"))
     credit_card_number = mapped_column(Integer)
     expire_date = mapped_column(String(5))
     other_info = mapped_column(String(30))

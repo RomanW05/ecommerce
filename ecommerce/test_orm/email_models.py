@@ -15,7 +15,7 @@ class Base(DeclarativeBase):
 
 class EmailsSent(Base):
     __tablename__ = "emails_sent"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     fk_user_id = mapped_column(ForeignKey("user.id"))
     fk_marketing_campaign_id = mapped_column(ForeignKey("marketing_campaign.id"))
     fk_campaign_design_id = mapped_column(ForeignKey("campaign_design.id"))
