@@ -5,3 +5,4 @@ kafka==1.3.5
 pyotp==2.9.0
 djangorestframework-simplejwt
 kafka-python
+httpagentparser

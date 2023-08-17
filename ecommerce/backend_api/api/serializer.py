@@ -28,6 +28,8 @@ class RequestSerializer(serializers.Serializer):
     accept_language = serializers.CharField()
     cookie = serializers.CharField()
     request_method = serializers.CharField()
+    ip = serializers.CharField()
+    action = serializers.CharField()
 
 
     def validate(self, attrs):
@@ -36,13 +38,19 @@ class RequestSerializer(serializers.Serializer):
         accept_language = attrs['accept_language'],
         cookie = attrs['cookie'],
         request_method = attrs['request_method'],
+        ip = attrs['ip']
+        os = attrs['os']
+        action = attrs['action']
 
         return {
-            "host":host,
-            "user_agent":user_agent,
-            "accept_language":accept_language,
-            "cookie":cookie,
-            "request_method":request_method,
+            "host": host,
+            "user_agent": user_agent,
+            "accept_language": accept_language,
+            "cookie": cookie,
+            "request_method": request_method,
+            "ip": ip,
+            "os": os,
+            "action": action,
         }
         
 

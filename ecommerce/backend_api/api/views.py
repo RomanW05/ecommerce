@@ -15,7 +15,7 @@ import pickle
 
 from .authentication import HasRestrictedScope, HasFullScope, IsWhitelisted
 from .functions import extract_request_data, kafka_send_message
-from .serializer import RequestSerializer, RegisterSerializer, RestrictedAccessSerializer, OTPSerializer, DeleteUserSerializer
+from .serializer import RequestSerializer
 from .topics_mapping import assing_topic
 
 """
@@ -40,6 +40,7 @@ class Home(APIView):
     serializer_class = RequestSerializer
 
     def get(self, request):
+        print(request.headers,'\n\n\n', request.META,'\n\n\n')
         topic = assing_topic(request)
         data = extract_request_data(request)
         serializer = self.serializer_class(data=data)
