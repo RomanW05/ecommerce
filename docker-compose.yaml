@@ -12,6 +12,11 @@ services:
         volumes:
             - ./data/zookeeper/data:/data
             - ./data/zookeeper/datalog:/datalog
+        # healthcheck:
+        #     test: ["CMD-SHELL", "echo ruok | nc -w 2 zookeeper 4444"]
+        #     interval: 5s
+        #     timeout: 10s
+        #     retries: 3
 
     
 
@@ -31,7 +36,19 @@ services:
             - ./data/kafka1/data:/var/lib/kafka/data
         depends_on:
             - zookeeper
-        
+        #    zookeeper:
+        #        condition: service_healthy
+        # healthcheck:
+        #     test: ["CMD-SHELL", "kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic <TOPIC_NAME> --describe"]
+        #     interval: 2s
+        #     timeout: 2s
+        #     retries: 15
+        healthcheck:
+            test: nc -z localhost 9091 || exit -1
+            start_period: 15s
+            interval: 5s
+            timeout: 10s
+            retries: 10
     
 
 
@@ -57,8 +74,12 @@ services:
         ports:
             - "8001:8001"
         depends_on:
-            - zookeeper
-            - kafka1
+            kafka1:
+                condition: service_healthy
+        
+        volumes:
+            - /usr/src/app/static
+            - .:/code
     
     backend_api:
         restart: always
@@ -70,8 +91,29 @@ services:
         tty: true        # docker run -t
         command: "python3 manage.py runserver 0.0.0.0:8000"
         depends_on:
-            - zookeeper
-            - kafka1
+            kafka1:
+                condition: service_healthy
+            # zookeeper:
+            #     condition: service_healthy
+        # depends_on:
+        #     kafka1:
+        #         condition: service_healthy
+        volumes:
+            # - /usr/src/app/static
+            - ./ecommerce/backend_api:/api
+    
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: example
+        healthcheck:
+            test: [“CMD-SHELL”, “pg_isready”]
+            interval: 1s
+            timeout: 5s
+            retries: 10
+ 
+
     
 
 

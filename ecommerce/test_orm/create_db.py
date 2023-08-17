@@ -7,6 +7,65 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
+import analytics_models
+
+# Option 1, using manual transaction
+# engine = create_engine(f"postgresql://{username}:{password}@{host}/{database_name}")
+
+engine = create_engine(analytics_db_url)  # Using f"postgresql://{username}:{password}@{host}"
+# engine = create_engine(f"postgresql://{username}:{password}@{host}")
+conn = engine.connect()
+conn.execute("commit")
+conn.execute("create database analytics_db")
+conn.close()
+
+
+
+# Option 2, using automatic transaction
+with create_engine(
+    analytics_db_url,
+    isolation_level='AUTOCOMMIT'
+).connect() as connection:
+    connection.execute('CREATE DATABASE analytics_db')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 """
@@ -15,53 +74,14 @@ database_url = 'postgresql://username:password@host/database_name'
 engine = create_engine(database_url)
 """
 
-class Base(DeclarativeBase):
-    pass
-
-
-class User(Base):
-    __tablename__ = "user"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    username = mapped_column(Integer)
-    password = mapped_column(String(30))
-    name = mapped_column(String(30))
-    surname = mapped_column(String(30))
-    phone = mapped_column(String(30))
-    email = mapped_column(String(30))
-    fk_address_id = mapped_column(ForeignKey("address.id"))
-
-
-
-    addresses: Mapped[List["Address"]] = relationship(
-        back_populates="user", cascade="all, delete-orphan"
-    )
-    def __repr__(self) -> str:
-        return f"User(id={self.id!r}, name={self.name!r}, fullname={self.fullname!r})"
-
-
-class Address(Base):
-    __tablename__ = "address"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    email_address: Mapped[str]
-    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    user: Mapped["User"] = relationship(back_populates="addresses")
-
-    def __repr__(self) -> str:
-        return f"Address(id={self.id!r}, email_address={self.email_address!r})"
+engine = create_engine("postgres://postgres@/postgres")
+# engine = create_engine(f"postgresql://username:password@host/database_name")
 
 
 
 
 
-
-
-
-
-
-engine = create_engine(f"postgresql://username:password@host/database_name")
-
-Base.metadata.create_all(engine)
+analytics_models.Base.metadata.create_all(engine)
 
 
 # Create

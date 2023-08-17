@@ -10,7 +10,7 @@ def kafka_send_message(producer, topic, data):
 def extract_request_data(request):
     os = system_detection(request)
     ip = get_client_ip(request)
-    action = action(request)
+    action = url_method(request)
     data = {
         'host': request.headers['Host'],
         'user_agent': request.headers['User-Agent'],
@@ -38,7 +38,7 @@ def system_detection(request):
     return os
 
 
-def action(request):
+def url_method(request):
     method = request.META['REQUEST_METHOD']
     url = request.META['PATH_INFO']
     resolution = url + method
