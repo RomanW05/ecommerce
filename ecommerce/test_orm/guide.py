@@ -9,9 +9,73 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 
 
+"""
+from sqlalchemy.orm import sessionmaker
+database_url = 'postgresql://username:password@host/database_name'
+engine = create_engine(database_url)
+"""
+
 class Base(DeclarativeBase):
     pass
 
+
+class User(Base):
+    __tablename__ = "user"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username = mapped_column(Integer)
+    password = mapped_column(String(30))
+    name = mapped_column(String(30))
+    surname = mapped_column(String(30))
+    phone = mapped_column(String(30))
+    email = mapped_column(String(30))
+    fk_address_id = mapped_column(ForeignKey("address.id"))
+
+
+class User(Base):
+    __tablename__ = "address"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    stree_name = mapped_column(String(30))
+    block_number = mapped_column(String(30))
+    floor_number = mapped_column(String(30))
+    street_number = mapped_column(String(30))
+    fk_zip_code_id = mapped_column(ForeignKey("zip_code.id"))
+    fk_province_id = mapped_column(ForeignKey("province.id"))
+    fk_country_id = mapped_column(ForeignKey("country.id"))
+
+
+class Country(Base):
+    __tablename__ = "country"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name = mapped_column(String(30))
+    code = mapped_column(String(2))
+
+
+class Province(Base):
+    __tablename__ = "province"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name = mapped_column(String(30))
+    code = mapped_column(String(2))
+    fk_country_id = mapped_column(ForeignKey("country.id"))
+
+
+class Zip_code(Base):
+    __tablename__ = "zip_code"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    code = mapped_column(String(2))
+    fk_province_id = mapped_column(ForeignKey("province.id"))
+    fk_country_id = mapped_column(ForeignKey("country.id"))
+
+
+
+
+
+
+
+
+
+
+
+"""
 class User(Base):
     __tablename__ = "user"
 
@@ -26,8 +90,6 @@ class User(Base):
 
 
 
-    name: Mapped[str] = mapped_column(String(30))
-    fullname: Mapped[Optional[str]]
     addresses: Mapped[List["Address"]] = relationship(
         back_populates="user", cascade="all, delete-orphan"
     )
@@ -54,7 +116,7 @@ class Address(Base):
 
 
 
-engine = create_engine("sqlite://", echo=True)
+engine = create_engine(f"postgresql://username:password@host/database_name")
 
 Base.metadata.create_all(engine)
 
@@ -109,3 +171,4 @@ session.flush()
 
 session.delete(patrick)
 session.commit()
+"""
