@@ -1,7 +1,25 @@
 from confluent_kafka import Consumer
 import json
+import time
+import psycopg2
+import os
 
-
+while True:
+    
+    try:
+        print('pending')
+        # print(os.environ)
+        connection = psycopg2.connect(user=os.environ['POSTGRES_USER'],
+                                  password=os.environ['POSTGRES_PASSWORD'],
+                                  host="localhost",
+                                  port="5432",
+                                  database=os.environ['POSTGRES_DB'])
+        print('accepted')
+        connection.close()
+        
+    except psycopg2.OperationalError as ex:
+        print("Connection failed: {0}".format(ex))
+    time.sleep(1)
 conf = {'bootstrap.servers': "kafka1:19091",
         'group.id': "my-group",
         'auto.offset.reset': 'smallest'}
@@ -21,3 +39,10 @@ while True:
         print('message received:', message)
     except Exception as e:
         print('error parsing data with picke.loads', e)
+    import psycopg2
+    try:
+        conn = psycopg2.connect("host=0.0.0.0 dbname=analytics_database")
+        conn.close()
+    except psycopg2.OperationalError as ex:
+        print("Connection failed: {0}".format(ex))
+    time.sleep(1)

@@ -70,13 +70,13 @@ The design concept for our ecommerce store is centered around a modern and minim
 Come up with a plan or algorithm to successfully and efficiently execute the client needs based on the analysis requirements
 
 ### Architecture
-The Ecommerce Web App follows a modern, microservices-based architecture that provides a flexible and scalable platform for online shopping. The app is built using the following technologies:
+The E-commerce Web App follows a modern, microservices-based architecture that provides a flexible and scalable platform for online shopping. The app is built using the following technologies:
 
 * Django: A modern, fast, web framework for building APIs with Python. Django provides high performance, validation, and easy-to-use asynchronous support.
 * Kafka: A distributed streaming platform that enables real-time communication between services. Kafka provides scalable and fault-tolerant messaging, making it ideal for building microservices architectures.
 * PostgreSQL: A powerful and reliable relational database management system. PostgreSQL provides a flexible data model, transaction support, and advanced features such as JSON storage and full-text search.
 
-The app consists of the following microservices:
+The Web application e-commerce consists of the following microservices:
 
 * Backend Service: Manages the interactions with the user and displays all the information. Provides the endpoints, APIs and allows interaction
 * Inventory Service: Manages and tracks the inventory levels of each product. Provides operations for updating inventory levels and interacts with the Order Service.
@@ -86,9 +86,9 @@ The app consists of the following microservices:
 * Email Service: Manages email sent to a subscribers list. Provides a list of subscribed user to send emails to and keeps track of the sent emails.
 * Analytics Service: Keeps track of all actions in the platform. Provides statistics based on user interactions, consumer behaviour and measures marketing campaigns effectiveness.
 
-Each microservice is built as a separate Python package and runs in its own Docker container. Communication between services is handled through Kafka topics, allowing for scalable and fault-tolerant messaging. The app also includes a gateway service, built with FastAPI, that provides a unified API for clients to interact with the microservices.
+Each microservice is built as a separate Python package and runs in its own Docker container. Communication between services is handled through Kafka topics, allowing for scalable and fault-tolerant messaging. The Web application also includes a gateway service, built with Django, that provides a unified API for clients to interact with the microservices.
 
-Overall, the microservices architecture provides a scalable and flexible platform for building an ecommerce web app, allowing for easy scaling and maintenance of individual components.
+Overall, the microservices architecture provides a scalable and flexible platform for building an ecommerce Web application, allowing for easy scaling and maintenance of individual components.
 
 
 ### Features:
@@ -168,7 +168,7 @@ The actions, planning, design and standards to be used thoughtout the project ar
 * Integration testing: TODO
 * Deployment: TODO
 
-* Each microservice consists of a Django project with an application to handle incoming and outcoming data
+* Each microservice consists of a different organization depending on its needs
 * Backend microservices are arranged providing the following endpoints:
     #### API (handles all requests and delegates):
         - New user registration
@@ -201,6 +201,6 @@ The actions, planning, design and standards to be used thoughtout the project ar
         - Stores user movements
         - Draws conclutions
     #### Inventory
-        - Updates inventory
+        - Creates, reads, updates and deletes inventory items
         - Reads inventory status
         - Generates shipping tracking status

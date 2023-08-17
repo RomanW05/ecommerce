@@ -1,17 +1,27 @@
 version: "3.8"
 services:
-    zookeeper:
-        image: zookeeper:3.4.9
-        hostname: zookeeper
-        ports:
-        - "2181:2181"
-        environment:
-            ZOO_MY_ID: 1
-            ZOO_PORT: 2181
-            ZOO_SERVERS: server.1=zookeeper:2888:3888
-        volumes:
-            - ./data/zookeeper/data:/data
-            - ./data/zookeeper/datalog:/datalog
+    # zookeeper:
+    #     image: zookeeper:3.4.9
+    #     hostname: zookeeper
+    #     ports:
+    #     - "2181:2181"
+    #     environment:
+    #         ZOO_MY_ID: 1
+    #         ZOO_PORT: 2181
+    #         ZOO_SERVERS: server.1=zookeeper:2888:3888
+    #     volumes:
+    #         - ./data/zookeeper/data:/data
+    #         - ./data/zookeeper/datalog:/datalog
+
+
+
+
+
+
+
+
+
+
         # healthcheck:
         #     test: ["CMD-SHELL", "echo ruok | nc -w 2 zookeeper 4444"]
         #     interval: 5s
@@ -20,28 +30,28 @@ services:
 
     
 
-    kafka1:
-        image: confluentinc/cp-kafka:5.3.0
-        hostname: kafka1
-        ports:
-            - "9091:9091"
-        environment:
-            KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19091,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9091
-            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
-            KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
-            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-            KAFKA_BROKER_ID: 1
-            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-        volumes:
-            - ./data/kafka1/data:/var/lib/kafka/data
-        depends_on:
-            - zookeeper
-        healthcheck:
-            test: nc -z localhost 9091 || exit -1
-            start_period: 15s
-            interval: 5s
-            timeout: 10s
-            retries: 10
+    # kafka1:
+    #     image: confluentinc/cp-kafka:5.3.0
+    #     hostname: kafka1
+    #     ports:
+    #         - "9091:9091"
+    #     environment:
+    #         KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19091,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9091
+    #         KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+    #         KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+    #         KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+    #         KAFKA_BROKER_ID: 1
+    #         KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    #     volumes:
+    #         - ./data/kafka1/data:/var/lib/kafka/data
+    #     depends_on:
+    #         - zookeeper
+    #     healthcheck:
+    #         test: nc -z localhost 9091 || exit -1
+    #         start_period: 15s
+    #         interval: 5s
+    #         timeout: 10s
+    #         retries: 10
 
     backend_analytics:
         restart: always
@@ -49,47 +59,58 @@ services:
             dockerfile: ./ecommerce/backend_analytics/Dockerfile
         ports:
             - "8001:8001"
-        depends_on:
-            kafka1:
-                condition: service_healthy
+        env_file:
+            - .env
+        # depends_on:
+        #     analytics_database:
+        #         condition: service_healthy
+            # kafka1:
+                # condition: service_healthy
         
     
-    backend_api:
-        restart: always
-        build:
-            dockerfile: ./ecommerce/backend_api/Dockerfile
-        ports:
-            - "8000:8000"
-        command: "python3 manage.py runserver 0.0.0.0:8000"
-        depends_on:
-            kafka1:
-                condition: service_healthy
-        volumes:
-            - ./ecommerce/backend_api:/api
+    # backend_api:
+    #     restart: always
+    #     build:
+    #         dockerfile: ./ecommerce/backend_api/Dockerfile
+    #     ports:
+    #         - "8000:8000"
+    #     command: "python3 manage.py runserver 0.0.0.0:8000"
+    #     depends_on:
+    #         kafka1:
+    #             condition: service_healthy
+    #     volumes:
+    #         - ./ecommerce/backend_api:/api
 
-    products_db:
-        image: postgres
+    analytics_database:
+        image: bitnami/postgresql:15.4.0-debian-11-r5
         restart: always
-        environment:
-            POSTGRES_PASSWORD: example
-            POSTGRES_USER: username
-            analytics_db_url: 'postgresql://{username}:{password}@{host}'
-        healthcheck:
-            test: [“CMD-SHELL”, “pg_isready”]
-            interval: 1s
-            timeout: 5s
-            retries: 10
+        ports:
+            - '5432:5432'
+        # environment:
+            # POSTGRES_USER: user123 # The PostgreSQL user (useful to connect to the database)
+            # POSTGRES_PASSWORD: pass123 # The PostgreSQL password (useful to connect to the database)
+            # POSTGRES_DB: default_database # The PostgreSQL default database (automatically created at first launch)
+            # analytics_db_url: 'postgresql://{username}:{password}@{host}'
+            # DATABASE_URL:postgres://{username}:{password}@{host}/somedb
+        # healthcheck:
+        #     test: [“CMD-SHELL”, “pg_isready”]
+        #     interval: 1s
+        #     timeout: 5s
+        #     retries: 10
         volumes:
-            - ./ecommerce/backend_analytics/:/var/lib/analytics_db/data
+            - ./data/backend_analytics:/var/lib/analytics_db/data
         env_file:
             - .env # The name of your environment file (the one at the repository root)
+        command: /bin/bash -c "until pg_isready -U ${POSTGRES_USER} -p 5432; do sleep 1; done; psql -U ${POSTGRES_USER} -c 'CREATE DATABASE bank;'"
 
             
  
 
     
 
-
+# volumes:
+#   analytics_database:
+#     driver: local
 
 
     # personal_website:
