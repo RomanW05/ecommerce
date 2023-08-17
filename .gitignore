@@ -3,3 +3,4 @@ ecommerce/data/
 data/
 personal_website/
 .env
+__pycache__/
