@@ -153,7 +153,7 @@ You can view a live demo of our ecommerce store at [TBD](TBD).
 
 
 ### Design tools
-We used Figma for our design work and https://app.diagrams.net for the diagrams overview. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800) and ![Drawio](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio)
+We used Figma for our design work wireframe and https://app.diagrams.net for the diagrams overview. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800) and ![Drawio](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio)
 
 
 ## CODING
@@ -204,3 +204,4 @@ The actions, planning, design and standards to be used thoughtout the project ar
         - Creates, reads, updates and deletes inventory items
         - Reads inventory status
         - Generates shipping tracking status
+
