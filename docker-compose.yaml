@@ -91,18 +91,17 @@ services:
             - '5432:5432'
         networks:
             - turreta_network
-        # env_file:
-        #     - .env
+        env_file:
+            - .env
         volumes:
             - ./data/backend_analytics:/var/lib/analytics_db/data
-        # command: /bin/bash -c "until pg_isready -U ${POSTGRES_USER} -p 5432; do sleep 1; done; psql -U ${POSTGRES_USER} -c 'CREATE DATABASE bank;'"
 
         environment:
-            POSTGRES_USER: postgres # The PostgreSQL user (useful to connect to the database)
-            POSTGRES_PASSWORD: postgres # The PostgreSQL password (useful to connect to the database)
-            POSTGRES_DB: default_database # The PostgreSQL default database (automatically created at first launch)
-            # DATABASE_URL: postgres://{analytics_database_username}:{analytics_database_password}@{analytics_database_host}/somedb
-            # analytics_db_url: 'postgresql://{username}:{password}@{host}'
+            POSTGRES_USER: ${ANALYTICS_DATABASE_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${ANALYTICS_DATABASE_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${ANALYTICS_DATABASE_POSTGRES_DATABASE_NAME}
+            # POSTGRES_HOST: ${ANALYTICS_DATABASE_POSTGRES_HOST}
+
             
         # healthcheck:
         #     test: [“CMD-SHELL”, “pg_isready”]
