@@ -1,90 +1,85 @@
 version: "3.8"
 services:
-    # zookeeper:
-    #     image: zookeeper:3.4.9
-    #     hostname: zookeeper
-    #     ports:
-    #     - "2181:2181"
-    #     environment:
-    #         ZOO_MY_ID: 1
-    #         ZOO_PORT: 2181
-    #         ZOO_SERVERS: server.1=zookeeper:2888:3888
-    #     volumes:
-    #         - ./data/zookeeper/data:/data
-    #         - ./data/zookeeper/datalog:/datalog
 
 
+    # Brokers
+    zookeeper:
+        image: zookeeper:3.4.9
+        hostname: zookeeper
+        ports:
+        - "2181:2181"
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_PORT: 2181
+            ZOO_SERVERS: server.1=zookeeper:2888:3888
+        volumes:
+            - ./data/zookeeper/data:/data
+            - ./data/zookeeper/datalog:/datalog
+        healthcheck:
+            test: ["CMD-SHELL", "echo ruok | nc -w 2 zookeeper 4444"]
+            interval: 5s
+            timeout: 10s
+            retries: 3
+
+    kafka1:
+        image: confluentinc/cp-kafka:5.3.0
+        hostname: kafka1
+        ports:
+            - "9091:9091"
+        environment:
+            KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19091,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9091
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+            KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+            KAFKA_BROKER_ID: 1
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+        volumes:
+            - ./data/kafka1/data:/var/lib/kafka/data
+        depends_on:
+            - zookeeper
+        healthcheck:
+            test: nc -z localhost 9091 || exit -1
+            start_period: 15s
+            interval: 5s
+            timeout: 10s
+            retries: 10
 
 
+    # backends
+    backend_analytics:
+        restart: always
+        build:
+            dockerfile: ./ecommerce/backend_analytics/Dockerfile
+        ports:
+            - "8001:8001"
+        env_file:
+            - .env
+        depends_on:
+            analytics_database:
+                condition: service_healthy
+            kafka1:
+                condition: service_healthy
 
+    backend_api:
+        restart: always
+        build:
+            dockerfile: ./ecommerce/backend_api/Dockerfile
+        ports:
+            - "8000:8000"
+        command: "python3 manage.py runserver 0.0.0.0:8000"
+        depends_on:
+            kafka1:
+                condition: service_healthy
+            # backend_analytics:
+            #     condition: service_healthy
+        volumes:
+            - ./ecommerce/backend_api:/api
 
-
-
-
-
-        # healthcheck:
-        #     test: ["CMD-SHELL", "echo ruok | nc -w 2 zookeeper 4444"]
-        #     interval: 5s
-        #     timeout: 10s
-        #     retries: 3
-
-    
-
-    # kafka1:
-    #     image: confluentinc/cp-kafka:5.3.0
-    #     hostname: kafka1
-    #     ports:
-    #         - "9091:9091"
-    #     environment:
-    #         KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19091,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9091
-    #         KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
-    #         KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
-    #         KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-    #         KAFKA_BROKER_ID: 1
-    #         KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    #     volumes:
-    #         - ./data/kafka1/data:/var/lib/kafka/data
-    #     depends_on:
-    #         - zookeeper
-    #     healthcheck:
-    #         test: nc -z localhost 9091 || exit -1
-    #         start_period: 15s
-    #         interval: 5s
-    #         timeout: 10s
-    #         retries: 10
-
-    # backend_analytics:
-    #     restart: always
-    #     build:
-    #         dockerfile: ./ecommerce/backend_analytics/Dockerfile
-    #     ports:
-    #         - "8001:8001"
-    #     env_file:
-    #         - .env
-        # depends_on:
-        #     analytics_database:
-        #         condition: service_healthy
-            # kafka1:
-                # condition: service_healthy
-        
-    
-    # backend_api:
-    #     restart: always
-    #     build:
-    #         dockerfile: ./ecommerce/backend_api/Dockerfile
-    #     ports:
-    #         - "8000:8000"
-    #     command: "python3 manage.py runserver 0.0.0.0:8000"
-    #     depends_on:
-    #         kafka1:
-    #             condition: service_healthy
-    #     volumes:
-    #         - ./ecommerce/backend_api:/api
 
     # Databases
-    analytics_database:
+    database_analytics:
         build:
-            dockerfile: ./ecommerce/analytics_database/Dockerfile
+            dockerfile: ./ecommerce/database_analytics/Dockerfile
         restart: always
         ports:
             - '5432:5432'
@@ -93,20 +88,20 @@ services:
         env_file:
             - .env
         volumes:
-            - ./data/analytics_database:/var/lib/analytics_database/data
+            - ./data/database_analytics:/var/lib/database_analytics/data
         environment:
-            POSTGRES_USER: ${ANALYTICS_DATABASE_POSTGRES_USER}
-            POSTGRES_PASSWORD: ${ANALYTICS_DATABASE_POSTGRES_PASSWORD}
-            POSTGRES_DB: ${ANALYTICS_DATABASE_POSTGRES_DATABASE_NAME}
+            POSTGRES_USER: ${DATABASE_ANALYTICS_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${DATABASE_ANALYTICS_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${DATABASE_ANALYTICS_POSTGRES_DATABASE_NAME}
         healthcheck:
             test: [“CMD-SHELL”, “pg_isready”]
             interval: 1s
             timeout: 5s
             retries: 10
     
-    users_database:
+    database_users:
         build:
-            dockerfile: ./ecommerce/users_database/Dockerfile
+            dockerfile: ./ecommerce/database_users/Dockerfile
         restart: always
         ports:
             - '5433:5432'
@@ -115,20 +110,20 @@ services:
         env_file:
             - .env
         volumes:
-            - ./data/users_database:/var/lib/users_database/data
+            - ./data/database_users:/var/lib/database_users/data
         environment:
-            POSTGRES_USER: ${USERS_DATABASE_POSTGRES_USER}
-            POSTGRES_PASSWORD: ${USERS_DATABASE_POSTGRES_PASSWORD}
-            POSTGRES_DB: ${USERS_DATABASE_POSTGRES_DATABASE_NAME}
+            POSTGRES_USER: ${DATABASE_USERS_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${DATABASE_USERS_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${DATABASE_USERS_POSTGRES_DATABASE_NAME}
         healthcheck:
             test: [“CMD-SHELL”, “pg_isready”]
             interval: 1s
             timeout: 5s
             retries: 10
     
-    products_database:
+    database_products:
         build:
-            dockerfile: ./ecommerce/products_database/Dockerfile
+            dockerfile: ./ecommerce/database_products/Dockerfile
         restart: always
         ports:
             - '5434:5432'
@@ -137,20 +132,20 @@ services:
         env_file:
             - .env
         volumes:
-            - ./data/products_database:/var/lib/products_database/data
+            - ./data/database_products:/var/lib/database_products/data
         environment:
-            POSTGRES_USER: ${PRODUCTS_DATABASE_POSTGRES_USER}
-            POSTGRES_PASSWORD: ${PRODUCTS_DATABASE_POSTGRES_PASSWORD}
-            POSTGRES_DB: ${PRODUCTS_DATABASE_POSTGRES_DATABASE_NAME}
+            POSTGRES_USER: ${DATABASE_PRODUCTS_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${DATABASE_PRODUCTS_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${DATABASE_PRODUCTS_POSTGRES_DATABASE_NAME}
         healthcheck:
             test: [“CMD-SHELL”, “pg_isready”]
             interval: 1s
             timeout: 5s
             retries: 10
     
-    marketing_database:
+    database_marketing:
         build:
-            dockerfile: ./ecommerce/marketing_database/Dockerfile
+            dockerfile: ./ecommerce/database_marketing/Dockerfile
         restart: always
         ports:
             - '5435:5432'
@@ -159,20 +154,20 @@ services:
         env_file:
             - .env
         volumes:
-            - ./data/marketing_database:/var/lib/marketing_database/data
+            - ./data/database_marketing:/var/lib/database_marketing/data
         environment:
-            POSTGRES_USER: ${MARKETING_DATABASE_POSTGRES_USER}
-            POSTGRES_PASSWORD: ${MARKETING_DATABASE_POSTGRES_PASSWORD}
-            POSTGRES_DB: ${MARKETING_DATABASE_POSTGRES_DATABASE_NAME}
+            POSTGRES_USER: ${DATABASE_MARKETING_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${DATABASE_MARKETING_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${DATABASE_MARKETING_POSTGRES_DATABASE_NAME}
         healthcheck:
             test: [“CMD-SHELL”, “pg_isready”]
             interval: 1s
             timeout: 5s
             retries: 10
 
-    orders_database:
+    database_orders:
         build:
-            dockerfile: ./ecommerce/orders_database/Dockerfile
+            dockerfile: ./ecommerce/database_orders/Dockerfile
         restart: always
         ports:
             - '5436:5432'
@@ -181,18 +176,19 @@ services:
         env_file:
             - .env
         volumes:
-            - ./data/orders_database:/var/lib/orders_database/data
+            - ./data/database_orders:/var/lib/database_orders/data
         environment:
-            POSTGRES_USER: ${MARKETING_DATABASE_POSTGRES_USER}
-            POSTGRES_PASSWORD: ${MARKETING_DATABASE_POSTGRES_PASSWORD}
-            POSTGRES_DB: ${MARKETING_DATABASE_POSTGRES_DATABASE_NAME}
+            POSTGRES_USER: ${DATABASE_ORDERS_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${DATABASE_ORDERS_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${DATABASE_ORDERS_POSTGRES_DATABASE_NAME}
         healthcheck:
             test: [“CMD-SHELL”, “pg_isready”]
             interval: 1s
             timeout: 5s
             retries: 10
 
-            
+    
+    # Database administrator
     pgadmin:
         image: dpage/pgadmin4
         environment:
@@ -214,9 +210,9 @@ networks:
     driver: bridge
 
 volumes:
-    analytics_database:
-    marketing_database:
-    orders_database:
-    products_database:
-    users_database:
+    database_analytics:
+    database_marketing:
+    database_orders:
+    database_products:
+    database_users:
     pgadmin:
