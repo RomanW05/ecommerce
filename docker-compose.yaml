@@ -54,11 +54,19 @@ services:
             - "8001:8001"
         env_file:
             - .env
+        environment:
+            POSTGRES_USER: ${DATABASE_ANALYTICS_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${DATABASE_ANALYTICS_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${DATABASE_ANALYTICS_POSTGRES_DATABASE_NAME}
+            POSTGRES_HOST: database_analytics
+            POSTGRES_PORT: ${POSTGRES_PORT}
         depends_on:
-            analytics_database:
-                condition: service_healthy
             kafka1:
                 condition: service_healthy
+        # links:
+        #     - database_analytics
+        networks:
+            - database_network
 
     backend_api:
         restart: always
@@ -82,7 +90,7 @@ services:
             dockerfile: ./ecommerce/database_analytics/Dockerfile
         restart: always
         ports:
-            - '5432:5432'
+            - '5432:${POSTGRES_PORT}'
         networks:
             - database_network
         env_file:
@@ -104,7 +112,7 @@ services:
             dockerfile: ./ecommerce/database_users/Dockerfile
         restart: always
         ports:
-            - '5433:5432'
+            - '5433:${POSTGRES_PORT}'
         networks:
             - database_network
         env_file:
@@ -126,7 +134,7 @@ services:
             dockerfile: ./ecommerce/database_products/Dockerfile
         restart: always
         ports:
-            - '5434:5432'
+            - '5434:${POSTGRES_PORT}'
         networks:
             - database_network
         env_file:
@@ -148,7 +156,7 @@ services:
             dockerfile: ./ecommerce/database_marketing/Dockerfile
         restart: always
         ports:
-            - '5435:5432'
+            - '5435:${POSTGRES_PORT}'
         networks:
             - database_network
         env_file:
@@ -170,7 +178,7 @@ services:
             dockerfile: ./ecommerce/database_orders/Dockerfile
         restart: always
         ports:
-            - '5436:5432'
+            - '5436:${POSTGRES_PORT}'
         networks:
             - database_network
         env_file:

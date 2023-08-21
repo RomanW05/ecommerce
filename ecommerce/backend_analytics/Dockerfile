@@ -8,4 +8,6 @@ RUN pip3 install -r requirements.txt
 
 COPY /ecommerce/backend_analytics /backend_analytics
 
+COPY .env /backend_analytics/
+
 CMD ["python", "kafka_consume.py" ]

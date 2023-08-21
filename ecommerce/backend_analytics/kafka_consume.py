@@ -8,11 +8,10 @@ while True:
     
     try:
         print('pending')
-        # print(os.environ)
         connection = psycopg2.connect(user=os.environ['POSTGRES_USER'],
                                   password=os.environ['POSTGRES_PASSWORD'],
-                                  host="localhost",
-                                  port="5432",
+                                  host=os.environ['POSTGRES_HOST'],
+                                  port=os.environ['POSTGRES_PORT'],
                                   database=os.environ['POSTGRES_DB'])
         print('accepted')
         connection.close()
