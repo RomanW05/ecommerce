@@ -33,7 +33,7 @@ path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 """
 
 
-kafka_producer = Producer({'bootstrap.servers': 'kafka1:19091'})
+kafka_producer = Producer({'bootstrap.servers': 'localhost:19091'})
 
 
 
@@ -41,11 +41,8 @@ class Home(APIView):
     serializer_class = RequestSerializer
 
     def get(self, request):
-        # print(request.headers,'\n\n\n', request.META,'\n\n\n')
-
         topic = assing_topic(request)
         data = extract_request_data(request)
-        # print(data, 'data')
         serializer = self.serializer_class(data=data)
         if serializer.is_valid():
             kafka_send_message(kafka_producer, topic, json.dumps(serializer.data))
