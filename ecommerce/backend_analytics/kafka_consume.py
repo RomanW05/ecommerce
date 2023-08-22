@@ -2,7 +2,18 @@ from confluent_kafka import Consumer
 import json
 import time
 import psycopg2
+from sqlalchemy.orm import create_engine, Session, sessionmaker
 import os
+
+from .analytics_models import RawRequest
+
+
+
+
+engine = create_engine(f"postgres+psycopg2://{os.environ['POSTGRES_USER']}:{os.environ['POSTGRES_PASSWORD']}@{os.environ['POSTGRES_HOST']}/{os.environ['POSTGRES_DB']}")
+Session = sessionmaker(bind=engine)
+
+
 
 conf = {'bootstrap.servers': 'kafka:9092',
         'group.id': "my-group",
@@ -27,13 +38,17 @@ while True:
     except Exception as e:
         print('error parsing data with picke.loads', e)
 
-    connection = psycopg2.connect(user=os.environ['POSTGRES_USER'],
-                                password=os.environ['POSTGRES_PASSWORD'],
-                                host=os.environ['POSTGRES_HOST'],
-                                port=os.environ['POSTGRES_PORT'],
-                                database=os.environ['POSTGRES_DB'])
+    # connection = psycopg2.connect(user=os.environ['POSTGRES_USER'],
+    #                             password=os.environ['POSTGRES_PASSWORD'],
+    #                             host=os.environ['POSTGRES_HOST'],
+    #                             port=os.environ['POSTGRES_PORT'],
+    #                             database=os.environ['POSTGRES_DB'])
+    book = RawRequest(request_data=message)
+    session = Session()
+    session.add(book)
+    session.commit()
     print('accepted')
-    connection.close()
+    # connection.close()
     time.sleep(1)
     
 conf = {'bootstrap.servers': "kafka1:19091",

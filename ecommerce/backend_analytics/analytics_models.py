@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from typing import List
 from typing import Optional
 from sqlalchemy import ForeignKey
-from sqlalchemy import String, Integer
+from sqlalchemy import String, Integer, JSON
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
@@ -50,3 +50,10 @@ class Browsers(Base):
     __tablename__ = "browser"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name = mapped_column(String(30))
+
+
+class RawRequest(Base):
+    __tablename__ = "raw_request"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    request_data = mapped_column(String(9999))
+    request_data = mapped_column(JSON)
