@@ -116,7 +116,10 @@ services:
     #     ports:
     #         - 9092:9092
     zookeeper:
-        image: confluentinc/cp-zookeeper:6.2.1
+        image: confluentinc/cp-zookeeper:7.2.6
+        restart: always
+        networks:
+            - mynet
         environment:
             ZOOKEEPER_CLIENT_PORT: 2181
             ZOOKEEPER_TICK_TIME: 2000
@@ -126,7 +129,9 @@ services:
             - ./kafka-data/zookeeper:/var/lib/zookeeper/data
             - ./kafka-data/zookeeper-logs:/var/lib/zookeeper/log
     kafka:
-        image: confluentinc/cp-kafka:6.2.1
+        image: confluentinc/cp-kafka:7.2.6
+        networks:
+            - mynet
         depends_on:
             - zookeeper
         ports:
@@ -141,8 +146,6 @@ services:
             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
         volumes:
             - ./kafka-data/kafka:/var/lib/kafka/data
-        networks:
-            - mynet
     
     kafdrop:
         image: obsidiandynamics/kafdrop
@@ -150,7 +153,9 @@ services:
         ports:
             - "9000:9000"
         environment:
-            KAFKA_BROKERCONNECT: "kafka:9092"
+            KAFKA_BROKERCONNECT: "kafka:29092"
+        networks:
+            - mynet
 
 
 

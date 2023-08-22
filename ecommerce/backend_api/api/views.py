@@ -35,7 +35,7 @@ path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 
 
 # kafka_producer = Producer({'bootstrap.servers': os.environ['KAFKA_BROKERCONNECT']})
-kafka_producer = Producer({'bootstrap.servers': 'localhost:29092'})
+kafka_producer = Producer({'bootstrap.servers': 'kafka:9092'})
 
 
 class Home(APIView):
