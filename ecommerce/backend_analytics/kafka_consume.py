@@ -5,7 +5,7 @@ import psycopg2
 import os
 
 
-conf = {'bootstrap.servers': "kafka1:19091",
+conf = {'bootstrap.servers': "kafka1:19092",
         'group.id': "my-group",
         'auto.offset.reset': 'smallest'}
 consumer = Consumer(conf)

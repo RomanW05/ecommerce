@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import json
 import pickle
+import os
 
 from .authentication import HasRestrictedScope, HasFullScope, IsWhitelisted
 from .functions import extract_request_data, kafka_send_message
@@ -33,8 +34,8 @@ path('verify_checkout/', views.Product.as_view(), name="verify checkout"),
 """
 
 
-kafka_producer = Producer({'bootstrap.servers': 'localhost:19091'})
-
+# kafka_producer = Producer({'bootstrap.servers': os.environ['KAFKA_BROKERCONNECT']})
+kafka_producer = Producer({'bootstrap.servers': 'localhost:29092'})
 
 
 class Home(APIView):
