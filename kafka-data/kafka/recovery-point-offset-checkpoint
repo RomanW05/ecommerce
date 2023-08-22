@@ -14,7 +14,7 @@ __consumer_offsets 1 0
 __consumer_offsets 34 0
 __consumer_offsets 16 0
 __consumer_offsets 45 0
-__consumer_offsets 12 1
+__consumer_offsets 12 12
 __consumer_offsets 41 0
 __consumer_offsets 24 0
 __consumer_offsets 20 0
@@ -32,7 +32,7 @@ __consumer_offsets 11 0
 __consumer_offsets 44 0
 __consumer_offsets 23 0
 __consumer_offsets 19 0
-analytics 0 1
+analytics 0 5
 __consumer_offsets 32 0
 __consumer_offsets 28 0
 __consumer_offsets 7 0
