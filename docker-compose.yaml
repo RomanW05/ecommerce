@@ -211,7 +211,7 @@ services:
         volumes:
             - ./data/pgadmin4:/var/lib/pgadmin4/data
         networks:
-            - database_network
+            - database_analytics_network
         restart: unless-stopped
 
     
