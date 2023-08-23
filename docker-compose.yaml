@@ -10,7 +10,7 @@ services:
         image: confluentinc/cp-zookeeper:7.2.6
         restart: always
         networks:
-            - mynet
+            - brokers_network
         environment:
             ZOOKEEPER_CLIENT_PORT: 2181
             ZOOKEEPER_TICK_TIME: 2000
@@ -22,7 +22,7 @@ services:
     kafka:
         image: confluentinc/cp-kafka:7.2.6
         networks:
-            - mynet
+            - brokers_network
         depends_on:
             - zookeeper
         ports:
@@ -46,10 +46,24 @@ services:
         environment:
             KAFKA_BROKERCONNECT: "kafka:9092"
         networks:
-            - mynet
+            - brokers_network
 
 
     # backends
+    backend_api:
+        restart: always
+        build:
+            dockerfile: ./ecommerce/backend_api/Dockerfile
+        ports:
+            - "8000:8000"
+        command: "python3 manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - ./ecommerce/backend_api:/api
+        networks:
+            - brokers_network
+        environment:
+            KAFKA_BROKERCONNECT: "kafka:9092"
+
     backend_analytics:
         restart: always
         build:
@@ -66,25 +80,10 @@ services:
             POSTGRES_PORT: ${POSTGRES_PORT}
             KAFKA_BROKERCONNECT: "kafka:9092"
         networks:
-            - mynet
-            - database_network
-        # depends_on:
-        #     kafka1:
-        #         condition: service_healthy
+            - brokers_network
+            - database_analytics_network
 
-    backend_api:
-        restart: always
-        build:
-            dockerfile: ./ecommerce/backend_api/Dockerfile
-        ports:
-            - "8000:8000"
-        command: "python3 manage.py runserver 0.0.0.0:8000"
-        volumes:
-            - ./ecommerce/backend_api:/api
-        networks:
-            - mynet
-        environment:
-            KAFKA_BROKERCONNECT: "kafka:9092"
+
 
 
     # Databases
@@ -95,7 +94,7 @@ services:
         ports:
             - '5432:${POSTGRES_PORT}'
         networks:
-            - database_network
+            - database_analytics_network
         env_file:
             - .env
         volumes:
@@ -217,9 +216,9 @@ services:
 
     
 networks:
-    database_network:
+    database_analytics_network:
         driver: bridge
-    mynet:
+    brokers_network:
         driver: bridge
 
 volumes:
