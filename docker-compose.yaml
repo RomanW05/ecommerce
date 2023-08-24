@@ -68,6 +68,11 @@ services:
         restart: always
         build:
             dockerfile: ./ecommerce/backend_analytics/Dockerfile
+            args:
+                POSTGRES_USER: ${DATABASE_ANALYTICS_POSTGRES_USER}
+                POSTGRES_PASSWORD: ${DATABASE_ANALYTICS_POSTGRES_PASSWORD}
+                POSTGRES_DB: ${DATABASE_ANALYTICS_POSTGRES_DATABASE_NAME}
+                POSTGRES_HOST: ${DATABASE_ANALYTICS_POSTGRES_HOST}
         ports:
             - "8001:8001"
         env_file:
@@ -86,7 +91,7 @@ services:
 
 
 
-    # Databases
+    # Postgres Databases
     database_analytics:
         build:
             dockerfile: ./ecommerce/database_analytics/Dockerfile

@@ -10,6 +10,12 @@ COPY /ecommerce/backend_analytics /backend_analytics
 
 COPY .env /backend_analytics/
 
+ARG POSTGRES_USER=$POSTGRES_USER
+ARG POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+ARG POSTGRES_DB=$POSTGRES_DB
+ARG POSTGRES_HOST=$POSTGRES_HOST
+
+RUN echo "$POSTGRES_USER $POSTGRES_PASSWORD $POSTGRES_DB $POSTGRES_HOST"
 RUN python create_db.py
 
 CMD ["python", "-u", "kafka_consume.py" ]
