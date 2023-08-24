@@ -2,7 +2,8 @@ from confluent_kafka import Consumer
 import json
 import time
 import psycopg2
-from sqlalchemy.orm import create_engine, Session, sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy import create_engine
 import os
 
 from .analytics_models import RawRequest
