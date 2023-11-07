@@ -205,3 +205,4 @@ The actions, planning, design and standards to be used thoughtout the project ar
         - Reads inventory status
         - Generates shipping tracking status
 
+...
