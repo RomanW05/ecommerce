@@ -6,7 +6,7 @@
     2.1 [Architecture](#Architecture)
     2.2 [Flowchart](#Flowchart)
     2.3 [Wireframe](#Wireframe)
-3. [Coding](#3.-Coding)
+3. [Coding](#3.-coding)
     3.1 [General Coding Standards](#General-coding-standards)
         3.1.1 [Formatting and Style Guidelines](#3.1.1 Formatting and Style Guidelines)
         3.1.3 [Documentation](#3.1.2 Code Organization)
