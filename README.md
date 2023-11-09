@@ -7,7 +7,7 @@
     2.2 [Flowchart](#Flowchart)
     2.3 [Wireframe](#Wireframe)
 3. [Coding](#Coding)
-    3.1 [General Coding Standards](#3.1 General coding standards)
+    3.1 [General Coding Standards](#3.1-General-coding-standards)
         3.1.1 [Formatting and Style Guidelines](#3.1.1 Formatting and Style Guidelines)
         3.1.3 [Documentation](#3.1.2 Code Organization)
         3.1.4 [Type Hints](#3.1.4 Type Hints)
@@ -238,4 +238,3 @@ The actions, planning, design and standards to be used thoughtout the project ar
         - Reads inventory status
         - Generates shipping tracking status
 
-...
