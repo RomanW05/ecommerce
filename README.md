@@ -161,7 +161,7 @@ You can view a live demo of our ecommerce store at [TBD](TBD).
 We used Figma for our design work wireframe and https://app.diagrams.net for the diagrams overview. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800) and ![Drawio](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio)
 
 
-## CODING
+## 3. CODING
 The actions, planning, design and standards to be used thoughtout the project are to be discussed by the development team. The selected methodology is the Agile due to the flexibility it provides.
 * Code design: In this section we will use the gathered requirements and specifications during the previous phases (Preliminary analysis and features). Based on this understanding, the development team will create a plan for the code's architecture and algorithms to be used. They will define how the different components of the system will interact with each other, and the protocols to be used. The web application will use RESTful APIs to communicate with the database, and Kafka to handle real-time data streaming.
     - The development team must design the code structure and its functionality. They will create a detailed plan for the code's structure and algorithms to be used. The specific services that require such algorithms are the analytics, marketing and email. TODO (in the meantime we can start with the architecture, routes, tests and ![database code](https://github.com/RomanW05/ecommerce/blob/main/databases.py), ![database diagram](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio), ![database overview](https://github.com/RomanW05/ecommerce/blob/main/blob/database_overview.png?raw=true))
