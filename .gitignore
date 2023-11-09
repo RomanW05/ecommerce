@@ -1,7 +1,7 @@
+__pycache__/
+data/
 ecommerce/ecom/
 ecommerce/data/
-data/
+kafka-data/
 personal_website/
 .env
-__pycache__/
-kafka-data/
