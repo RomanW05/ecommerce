@@ -1,22 +1,22 @@
 # This is a showcase of an ecommerce store
 
 ## Software Development Lifecycle (SDLC)
-1. [Analysis and specification requirements](#Analysis)
-2. [Design](#Design)
+1. [Analysis and specification requirements](#1-analysis)
+2. [Design](#2-design)
     2.1 [Architecture](#Architecture)
     2.2 [Flowchart](#Flowchart)
     2.3 [Wireframe](#Wireframe)
 3. [Coding](#3-coding)
-    3.1 [Coding Standards](#-coding-standards)
-    3.1.1 [General Coding Standards](#General-coding-standards)
-        3.1.1.1 [Formatting and Style Guidelines](#3.1.1 Formatting and Style Guidelines)
-        3.1.1.2 [Code Organization](#3.1.2 Code Organization)
-        3.1.1.3 [Documentation](#documentation)
-        3.1.1.4 [Type Hints](#3.1.4 Type Hints)
-        3.1.1.5 [Best Practices](#3.1.5 Best Practices)
-4. [Testing](#Testing)
-5. [Instalation and production](#Installation)
-6. [Maintenance](#Maintenance)
+    3.1 [Coding Standards](#31-coding-standards)
+    3.1.1 [General Coding Standards](#311-General-coding-standards)
+        3.1.1.1 [Formatting and Style Guidelines](#3111-Formatting-and-Style-Guidelines)
+        3.1.1.2 [Code Organization](#3112-Code-Organization)
+        3.1.1.3 [Documentation](#3113-documentation)
+        3.1.1.4 [Type Hints](#3114-Type-Hints)
+        3.1.1.5 [Best Practices](#3115-Best-Practices)
+4. [Testing](#4-testing)
+5. [Instalation and production](#5-installation)
+6. [Maintenance](#6-maintenance)
 
 
 ## ANALYSIS
@@ -196,7 +196,34 @@ The actions, planning, design and standards to be used thoughtout the project ar
                     * Write unit tests using unittest or pytest for code quality.
                     * Avoid magic numbers and hardcoding values. Use constants or configuration files.
                     * Keep functions and methods concise and focused on a single task.
-
+            ### 3.1.2 Django-specific coding standards
+                #### 3.1.2.1 Code Organization
+                    * Follow Django's recommended project directory structure.
+                    * Use Django's app structure to modularize components.
+                    * Keep views and templates simple and separated by concerns.
+                    * Use Django's ORM for database interactions.
+                    * Create clear and well-documented database models and migrations.
+                    * Use efficient querying practices to optimize database performance.
+                    * Implement caching for frequently accessed data.
+            ### 3.1.3 Kafka-specific coding standards
+                ### 3.1.3.1 Code Organization
+                    * Follow Confluent Platform's naming conventions for Kafka topics.
+                    * Define clear message schemas for Kafka topics.
+                    * Use meaningful and descriptive topic names.
+                    * Configure consumer group names and offsets properly.
+                    * Handle message deserialization and validation securely.
+                    * Implement error handling and retry mechanisms for message processing.
+            ### 3.1.4 Docker-Compose-specific coding standards
+                ### 3.1.3.1 Code Organization
+                    * Write clear and well-documented Dockerfiles for services.
+                    * Define services and dependencies in a docker-compose.yml file.
+                    * Use named volumes for persistent data.
+                    * Configure environment variables for service settings securely.
+                    * Use network modes and labels for service communication.
+                    * Keep Docker images up to date and address security vulnerabilities.
+            ### 3.1.5 Version Control Integration
+                Maintain the coding standards document in the project's version control repository.
+                Update the document when coding standards evolve.
 
 * Implementation: TODO
 * Version control: The tools to organize the work will be Github
