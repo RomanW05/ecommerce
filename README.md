@@ -167,28 +167,28 @@ The actions, planning, design and standards to be used thoughtout the project ar
     - The development team must design the code structure and its functionality. They will create a detailed plan for the code's structure and algorithms to be used. The specific services that require such algorithms are the analytics, marketing and email. TODO (in the meantime we can start with the architecture, routes, tests and ![database code](https://github.com/RomanW05/ecommerce/blob/main/databases.py), ![database diagram](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio), ![database overview](https://github.com/RomanW05/ecommerce/blob/main/blob/database_overview.png?raw=true))
 
 3. Coding standards: The coding standards outlined in this document are intended to ensure consistency, maintainability, and code quality for the E-Commerce Store project. This project utilizes Python, Django, Kafka, and Docker Compose.
-    3.1 General coding standards
-        3.1.1 Formatting and Style Guidelines
+    - 3.1 General coding standards
+        - 3.1.1 Formatting and Style Guidelines
             * Follow the PEP 8 style guide for Python code formatting.
             * Use four spaces for indentation.
             * Limit lines to 79 characters for code and 72 characters for docstrings.
             * Use clear and descriptive variable and function names.
             * Avoid excessive nesting and maintain concise code blocks.
-        3.1.2 Code Organization
+        - 3.1.2 Code Organization
             * Follow a clear directory structure for the project.
             * Organize code into modules and packages with meaningful names.
             * Use meaningful names for files and directories.
             * Group related code together within modules.
-        3.1.3 Documentation
+        - 3.1.3 Documentation
             * Use docstrings for functions, classes, and modules.
             * Document function and class parameters and return values.
             * Include module-level documentation describing the purpose and usage.
             * Maintain consistency in documentation format and style.
-        3.1.4 Type Hints
+        - 3.1.4 Type Hints
             * Use type hints for function and variable declarations (Python 3.5+).
             * Clearly specify function parameter types and return types.
             * Ensure that type hints accurately reflect the code's behavior.
-        3.1.5 Best Practices
+        - 3.1.5 Best Practices
             * Follow the DRY, SOLID principles.
             * Write unit tests using unittest or pytest for code quality.
             * Avoid magic numbers and hardcoding values. Use constants or configuration files.
