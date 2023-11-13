@@ -4,6 +4,7 @@
 <ul>
     <li><a href="#analysis">1. Analysis and specification requirements</a></li>
     <li><a href="#design">2. Design</a></li>
+        <ul>
         <li><a href="#Architecture">2.1 Architecture</a></li>
         <li><a href="#Flowchart">2.2 Flowchart</a></li>
         <li><a href="#Wireframe">2.3 Wireframe</a></li>
@@ -14,6 +15,7 @@
             <li><a href="#Process-order">Process order</a></li>
             <li><a href="#Login">Login</a></li>
             <li><a href="#Project-sturcture">Project structure</a></li>
+        </ul>
     <li><a href=""></a></li>
     <li><a href=""></a></li>
     <li><a href=""></a></li>
