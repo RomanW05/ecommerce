@@ -154,7 +154,7 @@ Below are some screenshots of our ecommerce store
 #### Login
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/login_flowchart.png?raw=true)
 #### Project structure
-![alt text](https://github.com/RomanW05/ecommerce/project_structure.txt?raw=true)
+[a link](https://github.com/RomanW05/ecommerce/project_structure.txt?raw=true)
 
 
 ### Live demo
