@@ -2,8 +2,30 @@
 
 ## Software Development Lifecycle (SDLC)
 <ul>
-    <li><a href="#analysis">Analysis and specification requirements</a></li>
-</ul>
+    <li><a href="#analysis">1. Analysis and specification requirements</a></li>
+    <li><a href="#design">2. Design</a></li>
+        <li><a href="#Architecture">2.1 Architecture</a></li>
+        <li><a href="#Flowchart">2.2 Flowchart</a></li>
+        <li><a href="#Wireframe">2.3 Wireframe</a></li>
+        <li><a href="">2.4 Overview</a></li>
+            <li><a href="#Overview">2.4.1 Overview</a></li>
+            <li><a href="#Main">Main</a></li>
+            <li><a href="#Checkout">Checkout</a></li>
+            <li><a href="#Process-order">Process order</a></li>
+            <li><a href="#Login">Login</a></li>
+            <li><a href="#Project-sturcture">Project structure</a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+
 1. [Analysis and specification requirements](#1-analysis)
 2. [Design](#2-design)
     2.1 [Architecture](#Architecture)
@@ -27,7 +49,7 @@
 4. [Testing](#4-testing)
 5. [Instalation and production](#5-installation)
 6. [Maintenance](#6-maintenance)
-
+</ul>
 
 ## ANALYSIS
 Specification requirements of the client. The client has a business idea and wants to implement it with our services. The client wants to:
