@@ -79,7 +79,7 @@ Come up with a plan or algorithm to successfully and efficiently execute the cli
 ### Architecture
 The E-commerce Web App follows a modern, microservices-based architecture that provides a flexible and scalable platform for online shopping. The app is built using the following technologies:
 
-* Django: A modern, fast, web framework for building APIs with Python. Django provides high performance, validation, and easy-to-use asynchronous support.
+* Django Rest Framework: A modern, fast, web framework for building APIs with Python. Django provides high performance, validation, and easy-to-use asynchronous support.
 * Kafka: A distributed streaming platform that enables real-time communication between services. Kafka provides scalable and fault-tolerant messaging, making it ideal for building microservices architectures.
 * PostgreSQL: A powerful and reliable relational database management system. PostgreSQL provides a flexible data model, transaction support, and advanced features such as JSON storage and full-text search.
 
@@ -175,10 +175,11 @@ The actions, planning, design and standards to be used thoughtout the project ar
                     * Follow the PEP 8 style guide for Python code formatting.
                     * Use four spaces for indentation.
                     * Limit lines to 79 characters for code and 72 characters for docstrings.
+                    * Flake8 will be applied to all code in order to speed up the coding process
                     * Use clear and descriptive variable and function names.
                     * Avoid excessive nesting and maintain concise code blocks.
                 #### 3.1.1.2 Code Organization
-                    * Follow a clear directory structure for the project.
+                    * Follow a clear directory structure for the project. The struture will be the same for every microservice using Django-Rest-Framework(DRF) and will be implemented using cookiecutter https://github.com/Ohuru-Tech/drf-cookiecutter.
                     * Organize code into modules and packages with meaningful names.
                     * Use meaningful names for files and directories.
                     * Group related code together within modules.
@@ -225,11 +226,10 @@ The actions, planning, design and standards to be used thoughtout the project ar
                 Maintain the coding standards document in the project's version control repository.
                 Update the document when coding standards evolve.
 
-* Implementation: TODO
+* Implementation: Ongoing
 * Version control: The tools to organize the work will be Github
-* Code review: TODO after implementation
-* Integration testing: TODO
-* Deployment: TODO
+* Code review: After implementation
+* Deployment: Jenkins will integrate the source code into a pipe to make the Continious Development/Continious Integration seemless
 
 * Each microservice consists of a different organization depending on its needs
 * Backend microservices are arranged providing the following endpoints:
