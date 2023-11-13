@@ -1,8 +1,11 @@
 # This is a showcase of an ecommerce store
 
-# Software Development Lifecycle (SDLC)
-## 1. [Analysis and specification requirements](#1-analysis)
-## 2. [Design](#2-design)
+## Software Development Lifecycle (SDLC)
+<ul>
+    <li><a href="#1-analysis">Analysis and specification requirements</a></li>
+</ul>
+1. [Analysis and specification requirements](#1-analysis)
+2. [Design](#2-design)
     2.1 [Architecture](#Architecture)
     2.2 [Flowchart](#Flowchart)
     2.3 [Wireframe](#Wireframe)
@@ -13,7 +16,7 @@
             2.4.4 [Process order](#Process-order)
             2.4.5 [Login](#Login)
             2.4.6 [Project structure](#Project-sturcture)
-## 3. [Coding](#3-coding)
+3. [Coding](#3-coding)
     3.1 [Coding Standards](#31-coding-standards)
     3.1.1 [General Coding Standards](#311-General-coding-standards)
             3.1.1.1 [Formatting and Style Guidelines](#3111-Formatting-and-Style-Guidelines)
@@ -21,9 +24,9 @@
             3.1.1.3 [Documentation](#3113-documentation)
             3.1.1.4 [Type Hints](#3114-Type-Hints)
             3.1.1.5 [Best Practices](#3115-Best-Practices)
-## 4. [Testing](#4-testing)
-## 5. [Instalation and production](#5-installation)
-## 6. [Maintenance](#6-maintenance)
+4. [Testing](#4-testing)
+5. [Instalation and production](#5-installation)
+6. [Maintenance](#6-maintenance)
 
 
 ## ANALYSIS
