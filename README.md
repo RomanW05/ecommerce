@@ -20,21 +20,21 @@
         </ul>
     <li><a href="#3-coding">3. Coding</a></li>
         <ul>
-            <li><a href="#31-coding-standards">Coding Standards</a></li>
+            <li><a href="#31-coding-standards">3.1 Coding Standards</a></li>
                 <ul>
-                <li><a href="#311-General-coding-standards">General Coding Standards</a></li>
+                <li><a href="#311-General-coding-standards">3.1.1 General Coding Standards</a></li>
                     <ul>
-                        <li><a href="#3111-Formatting-and-Style-Guidelines">Formatting and Style Guidelines</a></li>
-                        <li><a href="#3112-Code-Organization">Code Organization</a></li>
-                        <li><a href="#3113-documentation">Documentation</a></li>
-                        <li><a href="#3114-Type-Hints">Type Hints</a></li>
-                        <li><a href="#3115-Best-Practices">Best Practices</a></li>
+                        <li><a href="#3111-Formatting-and-Style-Guidelines">3.1.1.1 Formatting and Style Guidelines</a></li>
+                        <li><a href="#3112-Code-Organization">3.1.1.2 Code Organization</a></li>
+                        <li><a href="#3113-documentation">3.1.1.3 Documentation</a></li>
+                        <li><a href="#3114-Type-Hints">3.1.1.4 Type Hints</a></li>
+                        <li><a href="#3115-Best-Practices">3.1.1.5 Best Practices</a></li>
                     </ul>
                 </ul>
         </ul>
-    <li><a href="#4-testing">Testing</a></li>
-    <li><a href="#5-installation">Instalation and production</a></li>
-    <li><a href="#6-maintenance">Maintenance</a></li>
+    <li><a href="#4-testing">4. Testing</a></li>
+    <li><a href="#5-installation">5. Instalation and production</a></li>
+    <li><a href="#6-maintenance">6. Maintenance</a></li>
 </ul>
 
 ## ANALYSIS
