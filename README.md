@@ -5,52 +5,36 @@
     <li><a href="#analysis">1. Analysis and specification requirements</a></li>
     <li><a href="#design">2. Design</a></li>
         <ul>
-        <li><a href="#Architecture">2.1 Architecture</a></li>
-        <li><a href="#Flowchart">2.2 Flowchart</a></li>
-        <li><a href="#Wireframe">2.3 Wireframe</a></li>
-        <li><a href="">2.4 Overview</a></li>
-            <li><a href="#Overview">2.4.1 Overview</a></li>
-            <li><a href="#Main">Main</a></li>
-            <li><a href="#Checkout">Checkout</a></li>
-            <li><a href="#Process-order">Process order</a></li>
-            <li><a href="#Login">Login</a></li>
-            <li><a href="#Project-sturcture">Project structure</a></li>
+            <li><a href="#Architecture">2.1 Architecture</a></li>
+            <li><a href="#Flowchart">2.2 Flowchart</a></li>
+            <li><a href="#Wireframe">2.3 Wireframe</a></li>
+            <li><a href="">2.4 Overview</a></li>
+                <ul>
+                    <li><a href="#Overview">2.4.1 Overview</a></li>
+                    <li><a href="#Main">2.4.2 Main</a></li>
+                    <li><a href="#Checkout">2.4.3 Checkout</a></li>
+                    <li><a href="#Process-order">2.4.4 Process order</a></li>
+                    <li><a href="#Login">2.4.5 Login</a></li>
+                    <li><a href="#Project-sturcture">2.4.6 Project structure</a></li>
+                </ul>
         </ul>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-
-1. [Analysis and specification requirements](#1-analysis)
-2. [Design](#2-design)
-    2.1 [Architecture](#Architecture)
-    2.2 [Flowchart](#Flowchart)
-    2.3 [Wireframe](#Wireframe)
-    2.4 Overview
-        2.4.1 [Overview](#Overview)
-            2.4.2 [Main](#Main)
-            2.4.3 [Checkout](#Checkout)
-            2.4.4 [Process order](#Process-order)
-            2.4.5 [Login](#Login)
-            2.4.6 [Project structure](#Project-sturcture)
-3. [Coding](#3-coding)
-    3.1 [Coding Standards](#31-coding-standards)
-    3.1.1 [General Coding Standards](#311-General-coding-standards)
-            3.1.1.1 [Formatting and Style Guidelines](#3111-Formatting-and-Style-Guidelines)
-            3.1.1.2 [Code Organization](#3112-Code-Organization)
-            3.1.1.3 [Documentation](#3113-documentation)
-            3.1.1.4 [Type Hints](#3114-Type-Hints)
-            3.1.1.5 [Best Practices](#3115-Best-Practices)
-4. [Testing](#4-testing)
-5. [Instalation and production](#5-installation)
-6. [Maintenance](#6-maintenance)
+    <li><a href="#3-coding">3. Coding</a></li>
+        <ul>
+            <li><a href="#31-coding-standards">Coding Standards</a></li>
+                <ul>
+                <li><a href="#311-General-coding-standards">General Coding Standards</a></li>
+                    <ul>
+                        <li><a href="#3111-Formatting-and-Style-Guidelines">Formatting and Style Guidelines</a></li>
+                        <li><a href="#3112-Code-Organization">Code Organization</a></li>
+                        <li><a href="#3113-documentation">Documentation</a></li>
+                        <li><a href="#3114-Type-Hints">Type Hints</a></li>
+                        <li><a href="#3115-Best-Practices">Best Practices</a></li>
+                    </ul>
+                </ul>
+        </ul>
+    <li><a href="#4-testing">Testing</a></li>
+    <li><a href="#5-installation">Instalation and production</a></li>
+    <li><a href="#6-maintenance">Maintenance</a></li>
 </ul>
 
 ## ANALYSIS
