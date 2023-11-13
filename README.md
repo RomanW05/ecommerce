@@ -1,6 +1,6 @@
 # This is a showcase of an ecommerce store
 
-## Software Development Lifecycle (SDLC)
+# Software Development Lifecycle (SDLC)
 1. [Analysis and specification requirements](#1-analysis)
 2. [Design](#2-design)
     2.1 [Architecture](#Architecture)
@@ -8,19 +8,19 @@
     2.3 [Wireframe](#Wireframe)
     2.4 Overview
         2.4.1 [Overview](#Overview)
-        2.4.2 [Main](#Main)
-        2.4.3 [Checkout](#Checkout)
-        2.4.4 [Process order](#Process-order)
-        2.4.5 [Login](#Login)
-        2.4.6 [Project structure](#Project-sturcture)
+            2.4.2 [Main](#Main)
+            2.4.3 [Checkout](#Checkout)
+            2.4.4 [Process order](#Process-order)
+            2.4.5 [Login](#Login)
+            2.4.6 [Project structure](#Project-sturcture)
 3. [Coding](#3-coding)
     3.1 [Coding Standards](#31-coding-standards)
     3.1.1 [General Coding Standards](#311-General-coding-standards)
-        3.1.1.1 [Formatting and Style Guidelines](#3111-Formatting-and-Style-Guidelines)
-        3.1.1.2 [Code Organization](#3112-Code-Organization)
-        3.1.1.3 [Documentation](#3113-documentation)
-        3.1.1.4 [Type Hints](#3114-Type-Hints)
-        3.1.1.5 [Best Practices](#3115-Best-Practices)
+            3.1.1.1 [Formatting and Style Guidelines](#3111-Formatting-and-Style-Guidelines)
+            3.1.1.2 [Code Organization](#3112-Code-Organization)
+            3.1.1.3 [Documentation](#3113-documentation)
+            3.1.1.4 [Type Hints](#3114-Type-Hints)
+            3.1.1.5 [Best Practices](#3115-Best-Practices)
 4. [Testing](#4-testing)
 5. [Instalation and production](#5-installation)
 6. [Maintenance](#6-maintenance)
@@ -403,4 +403,19 @@ The actions, planning, design and standards to be used thoughtout the project ar
         - Creates, reads, updates and deletes inventory items
         - Reads inventory status
         - Generates shipping tracking status
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
