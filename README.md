@@ -2,7 +2,7 @@
 
 ## Software Development Lifecycle (SDLC)
 <ul>
-    <li><a href="#1-analysis">Analysis and specification requirements</a></li>
+    <li><a href="#analysis">Analysis and specification requirements</a></li>
 </ul>
 1. [Analysis and specification requirements](#1-analysis)
 2. [Design](#2-design)
