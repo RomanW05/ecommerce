@@ -6,6 +6,13 @@
     2.1 [Architecture](#Architecture)
     2.2 [Flowchart](#Flowchart)
     2.3 [Wireframe](#Wireframe)
+    2.4 Overview
+        2.4.1 [Overview](#Overview)
+        2.4.2 [Main](#Main)
+        2.4.3 [Checkout](#Checkout)
+        2.4.4 [Process order](#Process-order)
+        2.4.5 [Login](#Login)
+        2.4.6 [Project structure](#Project-sturcture)
 3. [Coding](#3-coding)
     3.1 [Coding Standards](#31-coding-standards)
     3.1.1 [General Coding Standards](#311-General-coding-standards)
@@ -154,8 +161,135 @@ Below are some screenshots of our ecommerce store
 #### Login
 ![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/login_flowchart.png?raw=true)
 #### Project structure
-[a link](https://github.com/RomanW05/ecommerce/project_structure.txt?raw=true)
-
+/ecommerce
+|-- /microservice_api
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- manage.py
+|   |-- /ecommerce_store
+|       |-- settings.py
+|       |-- urls.py
+|       |-- wsgi.py
+|   |-- /static
+|   |-- /media
+|   |-- /templates
+|   |-- /apps
+|       |-- __init__.py
+|       |-- /analytics
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|       |-- user
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|       |-- orders
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|       |-- inventory
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|       |-- marketing
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_users
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- user_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_orders
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- orders_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_inventory
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- inventory_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_analytics
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- analytics_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_marketing
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- marketing_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /kafka
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- producer.py
+|   |-- consumer.py
+|
+|-- /nginx
+|   |-- Dockerfile
+|   |-- default.conf
+|
+|-- /docker-compose.yml
+|-- /azure
+|   |-- azure-deployment.yml
+|   |-- azure-services-setup.sh
 
 ### Live demo
 You can view a live demo of our ecommerce store at [TBD](TBD).
