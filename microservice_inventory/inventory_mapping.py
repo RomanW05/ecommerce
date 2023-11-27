@@ -14,17 +14,18 @@ from sqlalchemy import Column, Integer, String, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+import os
 import sys
 
-base_path = Path(__file__).parent
-database_sqlite3_path = f"{base_path}/database.db"
 
-'postgresql://myuser:mypassword@postgres/mydatabase'
 Base = declarative_base()
 
 def create_session():
     try:
-        engine = create_engine('postgresql://myuser:mypassword@postgres/mydatabase')
+        user = os.environ.get('POSTGRES_USER')
+        password = os.environ.get('DATABASE_INVENTORY_POSTGRES_PASSWORD')
+        database_name = os.environ.get('DATABASE_INVENTORY_POSTGRES_DATABASE_NAME')
+        engine = create_engine(f'postgresql://{user}:{password}@postgres/{database_name}')
         # engine = create_engine(f'sqlite:///{database_sqlite3_path}')  # engine = create_engine('sqlite:///your_database.db')
         print(
             f"Connection to the for user created successfully.")
