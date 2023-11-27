@@ -158,7 +158,20 @@ services:
     #         interval: 1s
     #         timeout: 5s
     #         retries: 10
-    
+    database_inventory:
+        image: postgres
+        restart: always
+        env_file:
+            - .env
+        networks:
+            - database_network
+        environment:
+            POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
+        volumes:
+            - ./data/database_inventory:/var/lib/database_inventory/data
+
     # database_inventory:
     #     build:
     #         dockerfile: ./ecommerce/database_inventory/Dockerfile
@@ -227,20 +240,20 @@ services:
 
     # database_analytics:
     #     build:
-    #         dockerfile: ./ecommerce/database_orders/Dockerfile
+    #         dockerfile: ./ecommerce/database_analytics/Dockerfile
     #     restart: always
     #     ports:
-    #         - '5436:${POSTGRES_PORT}'
+    #         - '5436:${POSTGRES_ANALYTICS_PORT}'
     #     networks:
     #         - database_network
     #     env_file:
     #         - .env
     #     volumes:
-    #         - ./data/database_orders:/var/lib/database_orders/data
+    #         - ./data/database_analytics:/var/lib/database_analytics/data
     #     environment:
-    #         POSTGRES_USER: ${DATABASE_ORDERS_POSTGRES_USER}
-    #         POSTGRES_PASSWORD: ${DATABASE_ORDERS_POSTGRES_PASSWORD}
-    #         POSTGRES_DB: ${DATABASE_ORDERS_POSTGRES_DATABASE_NAME}
+    #         POSTGRES_USER: ${DATABASE_ANALYTICS_POSTGRES_USER}
+    #         POSTGRES_PASSWORD: ${DATABASE_ANALYTICS_POSTGRES_PASSWORD}
+    #         POSTGRES_DB: ${DATABASE_ANALYTICS_POSTGRES_DATABASE_NAME}
     #     healthcheck:
     #         test: [“CMD-SHELL”, “pg_isready”]
     #         interval: 1s
@@ -262,12 +275,12 @@ services:
         volumes:
             - ./data/pgadmin4:/var/lib/pgadmin4/data
         networks:
-            - database_analytics_network
+            - database_network
         restart: unless-stopped
 
     
 networks:
-    database_analytics_network:
+    database_network:
         driver: bridge
     brokers_network:
         driver: bridge
@@ -278,6 +291,6 @@ volumes:
     database_analytics: {}
     database_marketing: {}
     database_orders: {}
-    database_products: {}
+    database_inventory: {}
     database_users: {}
     pgadmin: {}
