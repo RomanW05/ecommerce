@@ -1,12 +1,12 @@
-from typing import List
-from typing import Optional
+# from typing import List
+# from typing import Optional
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import relationship
+# from sqlalchemy.orm import DeclarativeBase
+# from sqlalchemy.orm import Mapped
+# from sqlalchemy.orm import mapped_column
+# from sqlalchemy.orm import relationship
 
-from pathlib import Path
+# from pathlib import Path
 
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, JSON
@@ -23,9 +23,10 @@ Base = declarative_base()
 def create_session():
     try:
         user = os.environ.get('POSTGRES_USER')
-        password = os.environ.get('DATABASE_INVENTORY_POSTGRES_PASSWORD')
-        database_name = os.environ.get('DATABASE_INVENTORY_POSTGRES_DATABASE_NAME')
-        engine = create_engine(f'postgresql://{user}:{password}@postgres/{database_name}')
+        password = os.environ.get('POSTGRES_PASSWORD')
+        database_name = os.environ.get('POSTGRES_DB')
+        host = os.environ.get('POSTGRES_HOST')
+        engine = create_engine(f'postgresql://{user}:{password}@{host}/{database_name}')
         # engine = create_engine(f'sqlite:///{database_sqlite3_path}')  # engine = create_engine('sqlite:///your_database.db')
         print(
             f"Connection to the for user created successfully.")
