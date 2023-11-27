@@ -70,28 +70,7 @@ services:
 
 
 
-    # Postgres Databases
-    # database_analytics:
-    #     build:
-    #         dockerfile: ./ecommerce/database_analytics/Dockerfile
-    #     restart: always
-    #     ports:
-    #         - '5432:${POSTGRES_PORT}'
-    #     networks:
-    #         - database_analytics_network
-    #     env_file:
-    #         - .env
-    #     volumes:
-    #         - ./data/database_analytics:/var/lib/database_analytics/data
-    #     environment:
-    #         POSTGRES_USER: ${DATABASE_ANALYTICS_POSTGRES_USER}
-    #         POSTGRES_PASSWORD: ${DATABASE_ANALYTICS_POSTGRES_PASSWORD}
-    #         POSTGRES_DB: ${DATABASE_ANALYTICS_POSTGRES_DATABASE_NAME}
-    #     healthcheck:
-    #         test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
-    #         interval: 10s
-    #         timeout: 3s
-    #         retries: 3
+
 
 
 
@@ -123,6 +102,33 @@ services:
     #         database_analytics:
     #             condition: service_healthy
 
+    microservice_inventory:
+        restart: on-failure:10
+        build:
+            dockerfile: ./ecommerce/microservice_inventory/Dockerfile
+            args:
+                POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
+                POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
+                POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
+                POSTGRES_HOST: ${DATABASE_INVENTORY_POSTGRES_HOST}
+        ports:
+            - "8001:8001"
+        env_file:
+            - .env
+        environment:
+            POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
+            POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
+            POSTGRES_HOST: database_inventory
+            POSTGRES_PORT: ${POSTGRES_PORT}
+            KAFKA_BROKERCONNECT: "kafka:9092"
+        networks:
+            - brokers_network
+            - database_network
+        depends_on:
+            database_analytics:
+                condition: service_healthy
+
 
 
 
@@ -137,6 +143,30 @@ services:
 
 
         # command: ["./ecommerce/backend_analytics/wait_for_it.sh", "database_analytics:5432", "--", "python", "create_db.py"]
+
+    # Postgres Databases
+    # database_analytics:
+    #     build:
+    #         dockerfile: ./ecommerce/database_analytics/Dockerfile
+    #     restart: always
+    #     ports:
+    #         - '5432:${POSTGRES_PORT}'
+    #     networks:
+    #         - database_analytics_network
+    #     env_file:
+    #         - .env
+    #     volumes:
+    #         - ./data/database_analytics:/var/lib/database_analytics/data
+    #     environment:
+    #         POSTGRES_USER: ${DATABASE_ANALYTICS_POSTGRES_USER}
+    #         POSTGRES_PASSWORD: ${DATABASE_ANALYTICS_POSTGRES_PASSWORD}
+    #         POSTGRES_DB: ${DATABASE_ANALYTICS_POSTGRES_DATABASE_NAME}
+    #     healthcheck:
+    #         test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+    #         interval: 10s
+    #         timeout: 3s
+    #         retries: 3
+
     # database_users:
     #     build:
     #         dockerfile: ./ecommerce/database_users/Dockerfile
