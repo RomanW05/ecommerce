@@ -10,11 +10,33 @@ from rest_framework import generics, status
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
+
 # from .authentication import HasRestrictedScope, HasFullScope, IsWhitelisted
 # from .serializer import RegisterSerializer, RestrictedAccessSerializer, OTPSerializer, DeleteUserSerializer
 
+from kafka import KafkaProducer
+
+import os
+
+host = os.environ.get('KAFKA_BROKERCONNECT')
+print(host)
+port = os.environ.get('POSTGRES_PASSWORD')
+database_name = os.environ.get('POSTGRES_DB')
+producer = KafkaProducer(bootstrap_servers='localhost:1234')
 
 # Access views
+
+class Home(generics.GenericAPIView):
+    template_name = "home.html"
+    
+    # authentication_classes = [JWTTokenUserAuthentication]
+    # permission_classes = [IsAuthenticated, HasFullScope, IsWhitelisted]
+
+    def get(self, request):
+        producer.send('foobar', b'some_message_bytes')
+        return render(request, self.template_name, None, status=status.HTTP_200_OK)
+    
+
 # class DeleteAccount(generics.ListCreateAPIView):
 #     serializer_class = DeleteUserSerializer
 #     authentication_classes = [JWTTokenUserAuthentication]
@@ -116,10 +138,3 @@ from django.shortcuts import render
 #         return render(request, self.template_name, None, status=status.HTTP_200_OK)
 
 
-class Home(generics.GenericAPIView):
-    template_name = "home.html"
-    # authentication_classes = [JWTTokenUserAuthentication]
-    # permission_classes = [IsAuthenticated, HasFullScope, IsWhitelisted]
-
-    def get(self, request):
-        return render(request, self.template_name, None, status=status.HTTP_200_OK)
