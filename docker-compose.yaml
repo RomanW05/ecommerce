@@ -6,47 +6,47 @@ x-kafkaBrokers: &kafkaBrokers "kafka-1:9092"
 
 services:
     # Brokers
-    zookeeper:
-        image: confluentinc/cp-zookeeper:7.2.6
-        restart: always
-        networks:
-            - brokers_network
-        environment:
-            ZOOKEEPER_CLIENT_PORT: 2181
-            ZOOKEEPER_TICK_TIME: 2000
-        ports:
-            - 2181:2181
-        volumes:
-            - ./kafka-data/zookeeper:/var/lib/zookeeper/data
-            - ./kafka-data/zookeeper-logs:/var/lib/zookeeper/log
-    kafka:
-        image: confluentinc/cp-kafka:7.2.6
-        networks:
-            - brokers_network
-        depends_on:
-            - zookeeper
-        ports:
-            - 9092:9092
-            - 29092:29092
-        environment:
-            KAFKA_BROKER_ID: 1
-            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-            KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-        volumes:
-            - ./kafka-data/kafka:/var/lib/kafka/data
+    # zookeeper:
+    #     image: confluentinc/cp-zookeeper:7.2.6
+    #     restart: always
+    #     networks:
+    #         - brokers_network
+    #     environment:
+    #         ZOOKEEPER_CLIENT_PORT: 2181
+    #         ZOOKEEPER_TICK_TIME: 2000
+    #     ports:
+    #         - 2181:2181
+    #     volumes:
+    #         - ./kafka-data/zookeeper:/var/lib/zookeeper/data
+    #         - ./kafka-data/zookeeper-logs:/var/lib/zookeeper/log
+    # kafka:
+    #     image: confluentinc/cp-kafka:7.2.6
+    #     networks:
+    #         - brokers_network
+    #     depends_on:
+    #         - zookeeper
+    #     ports:
+    #         - 9092:9092
+    #         - 29092:29092
+    #     environment:
+    #         KAFKA_BROKER_ID: 1
+    #         KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    #         KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+    #         KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+    #         KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+    #         KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    #     volumes:
+    #         - ./kafka-data/kafka:/var/lib/kafka/data
     
-    kafdrop:
-        image: obsidiandynamics/kafdrop
-        restart: "no"
-        ports:
-            - "9000:9000"
-        environment:
-            KAFKA_BROKERCONNECT: "kafka:9092"
-        networks:
-            - brokers_network
+    # kafdrop:
+    #     image: obsidiandynamics/kafdrop
+    #     restart: "no"
+    #     ports:
+    #         - "9000:9000"
+    #     environment:
+    #         KAFKA_BROKERCONNECT: "kafka:9092"
+    #     networks:
+    #         - brokers_network
 
 
     # microservices
@@ -62,8 +62,8 @@ services:
             - ./microservice_api:/api
         networks:
             - brokers_network
-        environment:
-            KAFKA_BROKERCONNECT: "kafka:9092"
+        # environment:
+        #     KAFKA_BROKERCONNECT: "kafka:9092"
 
     
 
@@ -125,8 +125,8 @@ services:
         networks:
             - brokers_network
             - database_network
-        depends_on:
-            - database_inventory
+        # depends_on:
+        #     - database_inventory
 
 
 
@@ -188,25 +188,25 @@ services:
     #         interval: 1s
     #         timeout: 5s
     #         retries: 10
-    database_inventory:
-        image: postgres
-        restart: always
-        env_file:
-            - .env
-        networks:
-            - database_network
-        environment:
-            POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
-            POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
-            POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
-        volumes:
-            - ./data/database_inventory:/var/lib/database_inventory/data
-        healthcheck:
-            test: curl --fail http://localhost || exit 1
-            interval: 60s
-            retries: 5
-            start_period: 20s
-            timeout: 10s
+    # database_inventory:
+    #     image: postgres
+    #     restart: always
+    #     env_file:
+    #         - .env
+    #     networks:
+    #         - database_network
+    #     environment:
+    #         POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
+    #         POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
+    #         POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
+    #     volumes:
+    #         - ./data/database_inventory:/var/lib/database_inventory/data
+    #     healthcheck:
+    #         test: curl --fail http://localhost || exit 1
+    #         interval: 60s
+    #         retries: 5
+    #         start_period: 20s
+    #         timeout: 10s
 
     # database_inventory:
     #     build:
@@ -298,21 +298,21 @@ services:
 
 
     # # Database administrator
-    pgadmin:
-        image: dpage/pgadmin4
-        container_name: postgres_main
-        environment:
-            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-            PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
-            # PGADMIN_CONFIG_SERVER_MODE: ${PGADMIN_CONFIG_SERVER_MODE}
-        ports:
-            - "5050:${PGADMIN_LISTEN_PORT}"
-        volumes:
-            - ./data/pgadmin4:/var/lib/pgadmin4/data
-        networks:
-            - database_network
-        restart: unless-stopped
+    # pgadmin:
+    #     image: dpage/pgadmin4
+    #     container_name: postgres_main
+    #     environment:
+    #         PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+    #         PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    #         PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
+    #         # PGADMIN_CONFIG_SERVER_MODE: ${PGADMIN_CONFIG_SERVER_MODE}
+    #     ports:
+    #         - "5050:${PGADMIN_LISTEN_PORT}"
+    #     volumes:
+    #         - ./data/pgadmin4:/var/lib/pgadmin4/data
+    #     networks:
+    #         - database_network
+    #     restart: unless-stopped
 
     
 networks:

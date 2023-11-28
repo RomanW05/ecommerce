@@ -29,7 +29,7 @@ def create_session():
         engine = create_engine(f'postgresql://{user}:{password}@{host}/{database_name}')
         # engine = create_engine(f'sqlite:///{database_sqlite3_path}')  # engine = create_engine('sqlite:///your_database.db')
         print(
-            f"Connection to the for user created successfully.")
+            f"Connection to the for inventory created successfully.")
     except Exception as e:
         print("Connection could not be made due to the following error: \n", e)
         sys.exit()
