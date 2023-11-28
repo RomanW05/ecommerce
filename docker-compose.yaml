@@ -101,7 +101,7 @@ services:
     #     depends_on:
     #         database_analytics:
     #             condition: service_healthy
-
+ 
     microservice_inventory:
         restart: on-failure:10
         build:
