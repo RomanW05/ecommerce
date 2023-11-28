@@ -103,7 +103,7 @@ services:
     #             condition: service_healthy
 
     microservice_inventory:
-        restart: on-failure:10
+        restart: always
         build:
             dockerfile: ./microservice_inventory/Dockerfile
             args:
@@ -125,8 +125,9 @@ services:
         networks:
             - brokers_network
             - database_network
-        # depends_on:
-        #     - database_inventory
+        depends_on:
+            - zookeeper
+            - kafka
 
 
 

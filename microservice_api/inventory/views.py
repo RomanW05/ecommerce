@@ -14,26 +14,39 @@ from django.shortcuts import render
 # from .authentication import HasRestrictedScope, HasFullScope, IsWhitelisted
 # from .serializer import RegisterSerializer, RestrictedAccessSerializer, OTPSerializer, DeleteUserSerializer
 
-from kafka import KafkaProducer
+from confluent_kafka import Producer
 
 import os
 
+
 host = os.environ.get('KAFKA_BROKERCONNECT')
-print(host)
-port = os.environ.get('POSTGRES_PASSWORD')
-database_name = os.environ.get('POSTGRES_DB')
-producer = KafkaProducer(bootstrap_servers='localhost:1234')
+producer = Producer({'bootstrap.servers': host})
+
+def delivery_report(err, msg):
+    """ Called once for each message produced to indicate delivery result.
+        Triggered by poll() or flush(). """
+    if err is not None:
+        print('Message delivery failed: {}'.format(err))
+    else:
+        print('Message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
+
 
 # Access views
-
 class Home(generics.GenericAPIView):
     template_name = "home.html"
     
     # authentication_classes = [JWTTokenUserAuthentication]
     # permission_classes = [IsAuthenticated, HasFullScope, IsWhitelisted]
 
+
     def get(self, request):
-        producer.send('foobar', b'some_message_bytes')
+        # producer.send('foobar', b'some_message_bytes')
+        data = 'Hello world'
+        # producer.poll(0)
+        producer.produce('mytopic', key="inventory", value=data.encode('utf-8'), callback=delivery_report)
+        producer.poll(10000)
+        producer.flush()
+
         return render(request, self.template_name, None, status=status.HTTP_200_OK)
     
 
