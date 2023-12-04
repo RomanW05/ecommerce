@@ -43,7 +43,7 @@
 
 
 ## DESIGN
-![design](https://github.com/RomanW05/ecommerce/documentation/1.Design.txt)
+![design](https://github.com/RomanW05/ecommerce/documentation/2.Design.txt)
 
 
 ## 3. CODING
