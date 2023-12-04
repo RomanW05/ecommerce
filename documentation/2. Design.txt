@@ -1,0 +1,218 @@
+## DESIGN
+The design concept for our ecommerce store is centered around a modern and minimalistic style with a focus on usability and ease of navigation.
+Come up with a plan or algorithm to successfully and efficiently execute the client needs based on the analysis requirements
+
+### Architecture
+The E-commerce Web App follows a modern, microservices-based architecture that provides a flexible and scalable platform for online shopping. The app is built using the following technologies:
+
+* Django Rest Framework: A modern, fast, web framework for building APIs with Python. Django provides high performance, validation, and easy-to-use asynchronous support.
+* Kafka: A distributed streaming platform that enables real-time communication between services. Kafka provides scalable and fault-tolerant messaging, making it ideal for building microservices architectures.
+* PostgreSQL: A powerful and reliable relational database management system. PostgreSQL provides a flexible data model, transaction support, and advanced features such as JSON storage and full-text search.
+
+The Web application e-commerce consists of the following microservices:
+
+* Backend Service: Manages the interactions with the user and displays all the information. Provides the endpoints, APIs and allows interaction
+* Inventory Service: Manages and tracks the inventory levels of each product. Provides operations for updating inventory levels and interacts with the Order Service.
+* Order Service: Manages payments of the order placement and fulfillment process. Provides operations for placing orders, tracking order and status.
+* User Service: Manages user authentication and authorization. Provides operations for registering, logging in, and managing user accounts.
+* Marketing Service: Manages marketing campaigns and product discounts. Provides mechanisms for users to benefit from the different companys strategies.
+* Email Service: Manages email sent to a subscribers list. Provides a list of subscribed user to send emails to and keeps track of the sent emails.
+* Analytics Service: Keeps track of all actions in the platform. Provides statistics based on user interactions, consumer behaviour and measures marketing campaigns effectiveness.
+
+Each microservice is built as a separate Python package and runs in its own Docker container. Communication between services is handled through Kafka topics, allowing for scalable and fault-tolerant messaging. The Web application also includes a gateway service, built with Django, that provides a unified API for clients to interact with the microservices.
+
+Overall, the microservices architecture provides a scalable and flexible platform for building an ecommerce Web application, allowing for easy scaling and maintenance of individual components.
+
+
+### Features:
+* User registration and authentication
+* Product catalog with search and filter functionality
+* Shopping cart and checkout process
+* Payment processing and order tracking
+* User dashboard with order history and account settings
+* Analytics and marketing modules
+
+
+### Wireframe
+Below are some screenshots of our ecommerce store
+- Credit to [@waverlylab](https://www.figma.com/@waverlylab) for the creation of such wireframe
+- License: [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
+- No changes were made to the original work
+
+![Homepage screenshot](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-01.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-02.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-03.png?raw=true)
+![Product page screenshot](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-04.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-05.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-06.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-07.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-08.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-09.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-10.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-11.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-12.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-13.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-14.png?raw=true)
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/wireframe/wireframe-15.png?raw=true)
+
+
+### Flowchart
+* User lands on the landing-page
+* Clicks on a product that appeals
+* Selects the correct size and color
+* Adds to cart
+* Clicks on checkout
+* Inserts billing information
+* Pays
+* Receives a tracking number via email
+* Checks the status of the tracking number
+* Receives the package
+
+
+#### Overview
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png?raw=true)
+#### Main
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/main_flowchart.png?raw=true)
+#### Checkout
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/checkout_flowchart.png?raw=true)
+#### Process order
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/process_order_flowchart.png?raw=true)
+#### Login
+![alt text](https://github.com/RomanW05/ecommerce/blob/main/blob/login_flowchart.png?raw=true)
+#### Project structure
+/ecommerce
+|-- /microservice_api
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- manage.py
+|   |-- /ecommerce_store
+|       |-- settings.py
+|       |-- urls.py
+|       |-- wsgi.py
+|   |-- /static
+|   |-- /media
+|   |-- /templates
+|   |-- /apps
+|       |-- __init__.py
+|       |-- /analytics
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|       |-- user
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|       |-- orders
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|       |-- inventory
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|       |-- marketing
+|           |-- /migrations
+|               |-- __init__.py
+|           |-- __init__.py
+|           |-- admin.py
+|           |-- apps.py
+|           |-- models.py
+|           |-- tests.py
+|           |-- views.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_users
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- user_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_orders
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- orders_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_inventory
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- inventory_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_analytics
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- analytics_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /microservice_marketing
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- marketing_backend.py
+|   |-- /tests
+|       |-- /unit
+|       |-- /integration
+|       |-- /performance
+|       |-- /coverage
+|
+|-- /kafka
+|   |-- Dockerfile
+|   |-- requirements.txt
+|   |-- producer.py
+|   |-- consumer.py
+|
+|-- /nginx
+|   |-- Dockerfile
+|   |-- default.conf
+|
+|-- /docker-compose.yml
+|-- /azure
+|   |-- azure-deployment.yml
+|   |-- azure-services-setup.sh
+
+### Live demo
+You can view a live demo of our ecommerce store at [TBD](TBD).
+
+
+### Design tools
+We used Figma for our design work wireframe and https://app.diagrams.net for the diagrams overview. You can view our design files on [Figma](https://www.figma.com/community/file/966016571279781800) and ![Drawio](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio)
