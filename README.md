@@ -39,11 +39,11 @@
 
 
 ## ANALYSIS
-![Analysis and requirements](https://github.com/RomanW05/ecommerce/blob/main/documentation/1.Analysis.txt)
+![Analysis and requirements](https://github.com/RomanW05/ecommerce/blob/main/documentation/1.Analysis.md)
 
 
 ## DESIGN
-![Design](https://github.com/RomanW05/ecommerce/blob/main/documentation/2.Design.txt)
+![Design](https://github.com/RomanW05/ecommerce/blob/main/documentation/2.Design.md)
 
 
 ## 3. CODING
