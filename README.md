@@ -2,6 +2,7 @@
 
 ## Software Development Lifecycle (SDLC)
 <ul>
+    <li><a href="#overview">0. Overview</a></li>
     <li><a href="#analysis">1. Analysis and specification requirements</a></li>
     <li><a href="#design">2. Design</a></li>
         <ul>
@@ -18,7 +19,7 @@
                     <li><a href="#Project-sturcture">2.4.6 Project structure</a></li>
                 </ul>
         </ul>
-    <li><a href="#3-coding">3. Coding</a></li>
+    <li><a href="#coding">3. Coding</a></li>
         <ul>
             <li><a href="#31-coding-standards">3.1 Coding Standards</a></li>
                 <ul>
@@ -32,11 +33,13 @@
                     </ul>
                 </ul>
         </ul>
-    <li><a href="#4-testing">4. Testing</a></li>
-    <li><a href="#5-installation">5. Instalation and production</a></li>
-    <li><a href="#6-maintenance">6. Maintenance</a></li>
+    <li><a href="#testing">4. Testing</a></li>
+    <li><a href="#deployment">5. Deployment</a></li>
+    <li><a href="#maintenance">6. Maintenance</a></li>
 </ul>
 
+## OVERVIEW
+![Architecture overview](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png)
 
 ## ANALYSIS
 ![Analysis and requirements](https://github.com/RomanW05/ecommerce/blob/main/documentation/1.Analysis.md)
@@ -46,7 +49,7 @@
 ![Design](https://github.com/RomanW05/ecommerce/blob/main/documentation/2.Design.md)
 
 
-## 3. CODING
+## CODING
 The actions, planning, design and standards to be used thoughtout the project are to be discussed by the development team. The selected methodology is the Agile due to the flexibility it provides.
 * Code design: In this section we will use the gathered requirements and specifications during the previous phases (Preliminary analysis and features). Based on this understanding, the development team will create a plan for the code's architecture and algorithms to be used. They will define how the different components of the system will interact with each other, and the protocols to be used. The web application will use RESTful APIs to communicate with the database, and Kafka to handle real-time data streaming.
     - The development team must design the code structure and its functionality. They will create a detailed plan for the code's structure and algorithms to be used. The specific services that require such algorithms are the analytics, marketing and email. TODO (in the meantime we can start with the architecture, routes, tests and ![database code](https://github.com/RomanW05/ecommerce/blob/main/databases.py), ![database diagram](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio), ![database overview](https://github.com/RomanW05/ecommerce/blob/main/blob/database_overview.png?raw=true))
@@ -109,47 +112,24 @@ The actions, planning, design and standards to be used thoughtout the project ar
                 Maintain the coding standards document in the project's version control repository.
                 Update the document when coding standards evolve.
 
+
+## TESTING
+
+
+## DEPLOYMENT
+
+
+## MAINTENANCE
+
+
+
+## CURRENT STATUS
 * Implementation: Ongoing
 * Version control: The tools to organize the work will be Github
 * Code review: After implementation
 * Deployment: Jenkins will integrate the source code into a pipe to make the Continious Development/Continious Integration seemless
 
-* Each microservice consists of a different organization depending on its needs
-* Backend microservices are arranged providing the following endpoints:
-    #### API (handles all requests and delegates):
-        - New user registration
-        - Login
-        - Verify OTP
-        - Logout
-        - New order
-        - New subscriber
-        - Profile page
-        - Explore
-        - View product
-        - Cart
-        - Process payment
-        - Verify payment
-    #### Users:
-        - Registers new user
-        - Login user
-        - Verifies OTP
-        - Profile page
-    #### Orders:
-        - Process payments
-        - Verify payments
-        - Updates inventory
-        - Stores payment
-        - Updates order status
-    #### Marketing:
-        - New campaign
-        - Updates campaing
-    #### Analytics:
-        - Stores user movements
-        - Draws conclutions
-    #### Inventory
-        - Creates, reads, updates and deletes inventory items
-        - Reads inventory status
-        - Generates shipping tracking status
+
 
 
 
