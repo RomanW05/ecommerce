@@ -40,7 +40,7 @@
 
 ## OVERVIEW
 #### Microservice architecture
-![Architecture overview](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.png)
+![Architecture overview](https://github.com/RomanW05/ecommerce/blob/main/blob/Overview.drawio.png)
 #### Database structure
 ![Database overview](https://github.com/RomanW05/ecommerce/blob/main/blob/database_diagram.drawio.png)
 
