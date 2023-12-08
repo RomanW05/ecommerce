@@ -61,7 +61,7 @@ The actions, planning, design and standards to be used thoughtout the project ar
 *    1. Coding standards:
 
     The coding standards outlined in this document are intended to ensure consistency, maintainability, and code quality for the E-Commerce Store project. This project utilizes Python, Django, Kafka, and Docker Compose.
-            * 1.1. General coding standards
+            1.1. General coding standards
                 1.1.1. Formatting and Style Guidelines
                     - Follow the PEP 8 style guide for Python code formatting.
                     - Use four spaces for indentation.
@@ -88,7 +88,7 @@ The actions, planning, design and standards to be used thoughtout the project ar
                     - Write unit tests using unittest or pytest for code quality.
                     - Avoid magic numbers and hardcoding values. Use constants or configuration files.
                     - Keep functions and methods concise and focused on a single task.
-            * 1.2 Django-specific coding standards
+            1.2 Django-specific coding standards
                 1.2.1 Code Organization
                     - Follow Django's recommended project directory structure.
                     - Use Django's app structure to modularize components.
@@ -97,7 +97,7 @@ The actions, planning, design and standards to be used thoughtout the project ar
                     - Create clear and well-documented database models and migrations.
                     - Use efficient querying practices to optimize database performance.
                     - Implement caching for frequently accessed data.
-            * 1.3 Kafka-specific coding standards
+            1.3 Kafka-specific coding standards
                 1.3.1 Code Organization
                     - Follow Confluent Platform's naming conventions for Kafka topics.
                     - Define clear message schemas for Kafka topics.
@@ -105,7 +105,7 @@ The actions, planning, design and standards to be used thoughtout the project ar
                     - Configure consumer group names and offsets properly.
                     - Handle message deserialization and validation securely.
                     - Implement error handling and retry mechanisms for message processing.
-            * 1.4 Docker-Compose-specific coding standards
+            1.4 Docker-Compose-specific coding standards
                 1.4.1 Code Organization
                     - Write clear and well-documented Dockerfiles for services.
                     - Define services and dependencies in a docker-compose.yml file.
@@ -113,7 +113,7 @@ The actions, planning, design and standards to be used thoughtout the project ar
                     - Configure environment variables for service settings securely.
                     - Use network modes and labels for service communication.
                     - Keep Docker images up to date and address security vulnerabilities.
-            * 1.5 Version Control Integration
+            1.5 Version Control Integration
                 Maintain the coding standards document in the project's version control repository.
                 Update the document when coding standards evolve.
 
