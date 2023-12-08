@@ -60,25 +60,25 @@ The actions, planning, design and standards to be used thoughtout the project ar
 
     ## 3.1 Coding standards:
     The coding standards outlined in this document are intended to ensure consistency, maintainability, and code quality for the E-Commerce Store project. This project utilizes Python, Django, Kafka, and Docker Compose.
-            ### 3.1.1 General coding standards
-                #### 3.1.1.1. Formatting and Style Guidelines
+            * 3.1.1 General coding standards
+                * 3.1.1.1. Formatting and Style Guidelines
                     * Follow the PEP 8 style guide for Python code formatting.
                     * Use four spaces for indentation.
                     * Limit lines to 79 characters for code and 72 characters for docstrings.
                     * Flake8 will be applied to all code in order to speed up the coding process
                     * Use clear and descriptive variable and function names.
                     * Avoid excessive nesting and maintain concise code blocks.
-                #### 3.1.1.2 Code Organization
+                * 3.1.1.2 Code Organization
                     * Follow a clear directory structure for the project. The struture will be the same for every microservice using Django-Rest-Framework(DRF) and will be implemented using cookiecutter https://github.com/Ohuru-Tech/drf-cookiecutter.
                     * Organize code into modules and packages with meaningful names.
                     * Use meaningful names for files and directories.
                     * Group related code together within modules.
-                #### 3.1.1.3 Documentation
+                * 3.1.1.3 Documentation
                     * Use docstrings for functions, classes, and modules.
                     * Document function and class parameters and return values.
                     * Include module-level documentation describing the purpose and usage.
                     * Maintain consistency in documentation format and style.
-                #### 3.1.1.4 Type Hints
+                * 3.1.1.4 Type Hints
                     * Use type hints for function and variable declarations (Python 3.5+).
                     * Clearly specify function parameter types and return types.
                     * Ensure that type hints accurately reflect the code's behavior.
