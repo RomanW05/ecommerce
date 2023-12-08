@@ -120,27 +120,26 @@ The actions, planning, design and standards to be used thoughtout the project ar
 
 ## TESTING
 
-    It will consist of unitary tests, performance tests, integration tests and deployment tests
+*   It will consist of unitary tests, performance tests, integration tests and deployment tests
 
 
 ## DEPLOYMENT
 
-    Gitlab will be used to create a Continious Integration and Continious Deployment (CI/CD) pipeline using the configuration file ".gitlab-ci.yml". Each microservice has its own Dockerfile image to meet the Gitlab criteria and apply automatically the specified steps.
-    Azure will be used to host the application in the form of a docker-compose image containing all the microservices. A configuration file for the Azure platform is needed to pull the microservices from Gitlab "deploy-task.yaml"
-    - First: The code is commited and pushed to Gitlab where integration and deployment tests are held in the file "docker-compose.test.yml".
-    - Second: The docker-compose application is deployed to Azure using the gitlab configuration file
+*    Gitlab will be used to create a Continious Integration and Continious Deployment (CI/CD) pipeline using the configuration file ".gitlab-ci.yml". Each microservice has its own Dockerfile image to meet the Gitlab criteria and apply automatically the specified steps.
+*    Azure will be used to host the application in the form of a docker-compose image containing all the microservices. A configuration file for the Azure platform is needed to pull the microservices from Gitlab "deploy-task.yaml"
+*   Tasks:
+        - First: The code is commited and pushed to Gitlab where integration and deployment tests are held in the file "docker-compose.test.yml".
+        - Second: The docker-compose application is deployed to Azure using the gitlab configuration file
 
-    Gitlab will 
 
 ## MAINTENANCE
 
+* Updates and server status will be check regularly and the actions performed will be decided upon events.
 
 
-## CURRENT STATUS
-* Implementation: Ongoing
-* Version control: The tools to organize the work will be Github
-* Code review: After implementation
-* Deployment: Jenkins will integrate the source code into a pipe to make the Continious Development/Continious Integration seemless
+## CURRENT STATUS PHASE
+
+*   Design
 
 
 
