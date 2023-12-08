@@ -1,0 +1,6 @@
+version: v1.0.0
+steps:
+  - script: docker-compose pull
+    displayName: 'Pull Docker images'
+  - script: docker-compose up -d
+    displayName: 'Deploy Docker Compose'

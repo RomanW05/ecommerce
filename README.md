@@ -120,9 +120,16 @@ The actions, planning, design and standards to be used thoughtout the project ar
 
 ## TESTING
 
+    It will consist of unitary tests, performance tests, integration tests and deployment tests
+
 
 ## DEPLOYMENT
 
+    Gitlab and Azure will be used to create a Continious Deployment and Continious Integration (CI/CD) pipeline. Each microservice has its own Dockerfile image to meet the Gitlab criteria and apply automatically the specified steps.
+    - First: The code is commited and pushed to Gitlab where integration and deployment tests are held.
+    - Second: The docker-compose application is deployed to Azure 
+
+    Gitlab will 
 
 ## MAINTENANCE
 

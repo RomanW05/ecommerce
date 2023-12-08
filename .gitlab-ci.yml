@@ -1,0 +1,33 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  CONTAINER_REGISTRY: <your-acr-login-server>
+  CONTAINER_REPOSITORY: <your-acr-repository>
+  CONTAINER_IMAGE_TAG: $CI_COMMIT_REF_NAME
+
+services:
+  - docker:dind
+
+before_script:
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    - docker-compose up --build -d
+
+test:
+  stage: test
+  script:
+    - docker-compose -f docker-compose.test.yml up --abort-on-container-exit
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose pull
+    - az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+    - az acr login --name $CONTAINER_REGISTRY
+    - az acr task run --registry $CONTAINER_REGISTRY --name deploy-task --file deploy-task.yaml
