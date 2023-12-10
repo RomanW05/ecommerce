@@ -310,7 +310,7 @@ services:
         ports:
             - "5050:${PGADMIN_LISTEN_PORT}"
         volumes:
-            - ./data/pgadmin4:/var/lib/pgadmin4/data
+            - ./database_pgadmin:/var/lib/pgadmin4/data
         networks:
             - database_network
         restart: unless-stopped

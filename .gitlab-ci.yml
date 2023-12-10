@@ -1,3 +1,21 @@
+run_tests:
+  image: python:3.10.13-slim
+  script:
+    - python pytest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 stages:
   - build
   - test
