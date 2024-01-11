@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -73,12 +78,50 @@ WSGI_APPLICATION = 'microservice_users.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# my_variable = os.getenv('MY_VARIABLE', 'default_value')
+DATABASE_NAME = os.getenv ('DATABASE_NAME')
+USER = os.getenv ('USER')
+PASSWORD = os.getenv ('PASSWORD')
+HOST = os.getenv ('HOST')
+try:
+    PORT = int(os.getenv ('PORT'))
+except:
+    print(os.getenv)
+# POSTGRES_DATABASE_NAME ='my_shop_database'
+# POSTGRES_USER = 'admin_user'
+# POSTGRES_PASSWORD = '1234'
+# POSTGRES_HOST = 'localhost'
+# POSTGRES_PORT = 5432
+print(PASSWORD)
+print(PASSWORD)
+print(PASSWORD)
+print(PASSWORD)
+print(PASSWORD)
+print(PASSWORD)
+print(PASSWORD)
+print(PASSWORD)
+print(PASSWORD)
+try:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': DATABASE_NAME,
+            'USER': USER,
+            'PASSWORD': PASSWORD,
+            'HOST': HOST,   # Or an IP Address that your database is hosted on
+            'PORT': PORT,
+            #optional:
+            # 'OPTIONS': {
+            #     'storage_engine=INNODB,'
+            #     'character_set_connection=utf8,'
+            #     'collation_connection=utf8_bin'
+            #     #'sql_mode=STRICT_TRANS_TABLES,'    # see note below
+            #     #'SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
+            # }
+        }
     }
-}
+except:
+    print(os.getenv)
 
 
 # Password validation
