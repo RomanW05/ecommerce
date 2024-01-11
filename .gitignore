@@ -1,6 +1,7 @@
 __pycache__/
 azure/
 data/
+database_pgadmin/
 ecommerce/ecom/
 ecommerce/data/
 kafka-data/
