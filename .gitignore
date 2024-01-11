@@ -4,4 +4,5 @@ ecommerce/ecom/
 ecommerce/data/
 kafka-data/
 personal_website/
+postgres_data/
 .env
