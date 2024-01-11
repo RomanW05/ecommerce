@@ -6,64 +6,70 @@ x-kafkaBrokers: &kafkaBrokers "kafka-1:9092"
 
 services:
     # Brokers
-    zookeeper:
-        image: confluentinc/cp-zookeeper:7.2.6
-        restart: always
-        networks:
-            - brokers_network
-        environment:
-            ZOOKEEPER_CLIENT_PORT: 2181
-            ZOOKEEPER_TICK_TIME: 2000
-        ports:
-            - 2181:2181
-        volumes:
-            - ./kafka-data/zookeeper:/var/lib/zookeeper/data
-            - ./kafka-data/zookeeper-logs:/var/lib/zookeeper/log
-    kafka:
-        image: confluentinc/cp-kafka:7.2.6
-        networks:
-            - brokers_network
-        depends_on:
-            - zookeeper
-        ports:
-            - 9092:9092
-            - 29092:29092
-        environment:
-            KAFKA_BROKER_ID: 1
-            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-            KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-        volumes:
-            - ./kafka-data/kafka:/var/lib/kafka/data
+    # zookeeper:
+    #     image: confluentinc/cp-zookeeper:7.2.6
+    #     restart: always
+    #     networks:
+    #         - brokers_network
+    #     environment:
+    #         ZOOKEEPER_CLIENT_PORT: 2181
+    #         ZOOKEEPER_TICK_TIME: 2000
+    #     ports:
+    #         - 2181:2181
+    #     volumes:
+    #         - ./kafka-data/zookeeper:/var/lib/zookeeper/data
+    #         - ./kafka-data/zookeeper-logs:/var/lib/zookeeper/log
+    # kafka:
+    #     image: confluentinc/cp-kafka:7.2.6
+    #     networks:
+    #         - brokers_network
+    #     depends_on:
+    #         - zookeeper
+    #     ports:
+    #         - 9092:9092
+    #         - 29092:29092
+    #     environment:
+    #         KAFKA_BROKER_ID: 1
+    #         KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    #         KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+    #         KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+    #         KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+    #         KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    #     volumes:
+    #         - ./kafka-data/kafka:/var/lib/kafka/data
     
-    kafdrop:
-        image: obsidiandynamics/kafdrop
-        restart: always
-        ports:
-            - "9000:9000"
-        environment:
-            KAFKA_BROKERCONNECT: "kafka:9092"
-        networks:
-            - brokers_network
+    # kafdrop:
+    #     image: obsidiandynamics/kafdrop
+    #     restart: always
+    #     ports:
+    #         - "9000:9000"
+    #     environment:
+    #         KAFKA_BROKERCONNECT: "kafka:9092"
+    #     networks:
+    #         - brokers_network
 
 
     # microservices
-    microservice_api:
+    microservice_users:
         restart: always
         build:
-            dockerfile: ./microservice_api/Dockerfile
+            dockerfile: ./microservice_users/Dockerfile
         ports:
             - "8000:8000"
-        command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
-        volumes:
-            - ./microservice_api:/api
+        command: /wait-for-it.sh db:5432 -- python manage.py runserver 0.0.0.0:8000
+        # command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+        depends_on:
+            - postgres
         networks:
             - brokers_network
+            - database_network
         environment:
             KAFKA_BROKERCONNECT: "kafka:9092"
+            POSTGRES_DB: ${POSTGRES_DATABASE_NAME}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_HOST: postgres
+            POSTGRES_PORT: ${POSTGRES_PORT}
 
     
 
@@ -102,32 +108,32 @@ services:
     #         database_analytics:
     #             condition: service_healthy
 
-    microservice_inventory:
-        restart: always
-        build:
-            dockerfile: ./microservice_inventory/Dockerfile
-            args:
-                POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
-                POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
-                POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
-                POSTGRES_HOST: ${DATABASE_INVENTORY_POSTGRES_HOST}
-        ports:
-            - "8001:8001"
-        env_file:
-            - .env
-        environment:
-            POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
-            POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
-            POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
-            POSTGRES_HOST: database_inventory
-            POSTGRES_PORT: ${POSTGRES_PORT}
-            KAFKA_BROKERCONNECT: "kafka:9092"
-        networks:
-            - brokers_network
-            - database_network
-        depends_on:
-            - zookeeper
-            - kafka
+    # microservice_inventory:
+    #     restart: always
+    #     build:
+    #         dockerfile: ./microservice_inventory/Dockerfile
+    #         args:
+    #             POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
+    #             POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
+    #             POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
+    #             POSTGRES_HOST: ${DATABASE_INVENTORY_POSTGRES_HOST}
+    #     ports:
+    #         - "8001:8001"
+    #     env_file:
+    #         - .env
+    #     environment:
+    #         POSTGRES_USER: ${DATABASE_INVENTORY_POSTGRES_USER}
+    #         POSTGRES_PASSWORD: ${DATABASE_INVENTORY_POSTGRES_PASSWORD}
+    #         POSTGRES_DB: ${DATABASE_INVENTORY_POSTGRES_DATABASE_NAME}
+    #         POSTGRES_HOST: database_inventory
+    #         POSTGRES_PORT: ${POSTGRES_PORT}
+    #         KAFKA_BROKERCONNECT: "kafka:9092"
+    #     networks:
+    #         - brokers_network
+    #         - database_network
+    #     depends_on:
+    #         - zookeeper
+    #         - kafka
 
 
 
@@ -314,6 +320,20 @@ services:
         networks:
             - database_network
         restart: unless-stopped
+    
+    # Database
+    postgres:
+        image: postgres:12-alpine3.19
+        environment:
+            POSTGRES_DB: ${POSTGRES_DATABASE_NAME}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        volumes:
+            - ./postgres_data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        networks:
+            - database_network
 
     
 networks:
@@ -325,9 +345,9 @@ networks:
 volumes:
     zookeeper: {}
     kafka1: {}
-    database_analytics: {}
-    database_marketing: {}
-    database_orders: {}
-    database_inventory: {}
-    database_users: {}
+    # database_analytics: {}
+    # database_marketing: {}
+    # database_orders: {}
+    # database_inventory: {}
+    # database_users: {}
     pgadmin: {}
