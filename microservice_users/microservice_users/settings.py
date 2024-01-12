@@ -78,11 +78,28 @@ WSGI_APPLICATION = 'microservice_users.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASE_NAME = os.getenv ('DATABASE_NAME')
-USER = os.getenv ('USER')
-PASSWORD = os.getenv ('PASSWORD')
-HOST = os.getenv ('HOST')
-PORT = int(os.getenv ('PORT'))
+DATABASE_NAME = os.getenv ('POSTGRES_DB')
+USER = os.getenv ('POSTGRES_USER')
+PASSWORD = os.getenv ('POSTGRES_PASSWORD')
+HOST = os.getenv ('POSTGRES_HOST')
+try:
+    PORT = int(os.getenv ('POSTGRES_PORT'))
+except Exception as e:
+    print(e)
+
+    print(f"""
+        DATABASE_NAME = {os.getenv ('POSTGRES_DB')}
+        USER = {os.getenv ('POSTGRES_USER')}
+        PASSWORD = {os.getenv ('POSTGRES_PASSWORD')}
+        HOST = {os.getenv ('POSTGRES_HOST')}
+        PORT = {os.getenv ('POSTGRES_PORT')}
+          """)
+    
+
+
+    print('ENVIRONMENTS: ', os.environ.items())
+    import sys
+    sys.exit()
 
 DATABASES = {
     'default': {

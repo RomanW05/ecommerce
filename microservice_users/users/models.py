@@ -4,9 +4,9 @@ from django.contrib.auth.base_user import AbstractBaseUser
 # Create your models here.
 
 class User(AbstractBaseUser):
-    id = models.CharField(primary_key=True, editable=False)
-    username = models.CharField('Username', unique=True)
-    email = models.EmailField('Email address', unique=True)
+    id = models.CharField(primary_key=True, editable=False, max_length=16)
+    username = models.CharField('Username', unique=True, max_length=24)
+    email = models.EmailField('Email address', unique=True, max_length=64)
     date_joined = models.DateTimeField('Date joined', auto_now_add=True)
     blocked_status = models.BooleanField('Blocked status', default=False)
     name = models.CharField('Name', max_length=60, null=True)
