@@ -79,7 +79,7 @@ DATABASE_NAME = os.getenv ('POSTGRES_DB')
 USER = os.getenv ('POSTGRES_USER')
 PASSWORD = os.getenv ('POSTGRES_PASSWORD')
 HOST = os.getenv ('POSTGRES_HOST')
-PORT = int(os.getenv ('POSTGRES_PORT'))
+PORT = os.getenv ('POSTGRES_PORT')
 
 DATABASES = {
     'default': {
@@ -89,14 +89,6 @@ DATABASES = {
         'PASSWORD': PASSWORD,
         'HOST': HOST,   # Or an IP Address that your database is hosted on
         'PORT': PORT,
-        #optional:
-        # 'OPTIONS': {
-        #     'storage_engine=INNODB,'
-        #     'character_set_connection=utf8,'
-        #     'collation_connection=utf8_bin'
-        #     #'sql_mode=STRICT_TRANS_TABLES,'    # see note below
-        #     #'SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
-        # }
     }
 }
 
