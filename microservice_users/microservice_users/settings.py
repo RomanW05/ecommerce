@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,24 +81,7 @@ DATABASE_NAME = os.getenv ('POSTGRES_DB')
 USER = os.getenv ('POSTGRES_USER')
 PASSWORD = os.getenv ('POSTGRES_PASSWORD')
 HOST = os.getenv ('POSTGRES_HOST')
-try:
-    PORT = int(os.getenv ('POSTGRES_PORT'))
-except Exception as e:
-    print(e)
-
-    print(f"""
-        DATABASE_NAME = {os.getenv ('POSTGRES_DB')}
-        USER = {os.getenv ('POSTGRES_USER')}
-        PASSWORD = {os.getenv ('POSTGRES_PASSWORD')}
-        HOST = {os.getenv ('POSTGRES_HOST')}
-        PORT = {os.getenv ('POSTGRES_PORT')}
-          """)
-    
-
-
-    print('ENVIRONMENTS: ', os.environ.items())
-    import sys
-    sys.exit()
+PORT = int(os.getenv ('POSTGRES_PORT'))
 
 DATABASES = {
     'default': {
