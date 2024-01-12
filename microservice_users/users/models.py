@@ -1,21 +1,22 @@
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
 class User(AbstractBaseUser):
     id = models.CharField(primary_key=True, editable=False, max_length=16)
-    username = models.CharField('Username', unique=True, max_length=24)
-    email = models.EmailField('Email address', unique=True, max_length=64)
-    date_joined = models.DateTimeField('Date joined', auto_now_add=True)
+    username = models.CharField(_('Username'), unique=True, max_length=24)
+    email = models.EmailField(_('Email address'), unique=True, max_length=64)
+    date_joined = models.DateTimeField(_('Date joined'), auto_now_add=True)
     blocked_status = models.BooleanField('Blocked status', default=False)
-    name = models.CharField('Name', max_length=60, null=True)
-    surname = models.CharField('Surname', max_length=60, null=True)
-    phone_number = models.CharField('Phone number', max_length=20, unique=True, null=True)
+    name = models.CharField(_('Name'), max_length=60, null=True)
+    surname = models.CharField(_('Surname'), max_length=60, null=True)
+    phone_number = models.CharField(_('Phone number'), max_length=20, unique=True, null=True)
 
 
 class Country(models.Model):
-    name = models.CharField('Country', max_length=60, unique=True)
+    name = models.CharField(_('Country'), max_length=60, unique=True)
     
     def __str__(self):
         return self.name
@@ -23,7 +24,7 @@ class Country(models.Model):
 
 class Province(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='province_id')
-    name = models.CharField('Province name', max_length=60)
+    name = models.CharField(_('Province'), max_length=60)
 
     def __str__(self):
         return self.name
@@ -31,7 +32,7 @@ class Province(models.Model):
 
 class ZipCode(models.Model):
     province = models.ForeignKey(Province, on_delete=models.CASCADE, related_name='zip_code_id')
-    zipcode = models.CharField('Zip code', max_length=20, unique=True)
+    zipcode = models.CharField(_('Zip code'), max_length=20, unique=True)
     
 
 class Address(models.Model):
@@ -39,10 +40,10 @@ class Address(models.Model):
     zipcode = models.ForeignKey(ZipCode, on_delete=models.SET_NULL, null=True)
     province = models.ForeignKey(Province, on_delete=models.SET_NULL, null=True)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
-    street_block_number = models.CharField('Street block', max_length=60)
-    street_floor_number = models.CharField('Street floor', max_length=60)
-    street_house_number = models.CharField('Street house number', max_length=60)
-    street_name = models.CharField('Street name', max_length=60)
+    street_block_number = models.CharField(_('Street block'), max_length=60)
+    street_floor_number = models.CharField(_('Street floor'), max_length=60)
+    street_house_number = models.CharField(_('Street house number'), max_length=60)
+    street_name = models.CharField(_('Street name'), max_length=60)
  
     
 
