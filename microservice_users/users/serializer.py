@@ -5,11 +5,18 @@ from .models import User
 
 User = get_user_model()
 
+
+
 class ResisterSerializer:
     class meta:
         model = User
-        fields = ('id','email', 'password',)
+        fields = ('email', 'password',)
         extra_kwargs = {
             'password':{'write_only': True},
         }
-        
+    
+
+class LoginSerializer:
+    class meta:
+        model = User
+        fields = ('email', 'password')
