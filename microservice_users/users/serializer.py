@@ -10,14 +10,14 @@ User = get_user_model()
 
 
 class ResisterSerializer(serializers.ModelSerializer):
-    class meta:
+    class Meta:
         model = User
         fields = ('email', 'password',)
         extra_kwargs = {
             'password':{'write_only': True},
         }
     
-    def validate_registration(self):
+    def validate_data(self):
         data = self.get_initial()
         email = data.get('email')
         email_stored = User.objects.filter(email=email)
@@ -32,6 +32,6 @@ class ResisterSerializer(serializers.ModelSerializer):
     
 
 class LoginSerializer(serializers.ModelSerializer):
-    class meta:
+    class Meta:
         model = User
         fields = ('email', 'password')
