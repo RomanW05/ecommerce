@@ -20,4 +20,6 @@ ENV PASSWORD POSTGRES_PASSWORD
 ENV HOST POSTGRES_HOST
 ENV PORT POSTGRES_PORT
 
+EXPOSE 8000
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--reload", "/microservice_users/microservice_users.wsgi:application"]
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -70,6 +70,9 @@ services:
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_HOST: postgres
             POSTGRES_PORT: ${POSTGRES_PORT}
+        volumes:
+            - ./microservice_users/:/app
+        
 
     
 
