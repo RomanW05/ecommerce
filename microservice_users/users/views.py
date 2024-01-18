@@ -25,7 +25,7 @@ class RegisterUser(generics.GenericAPIView):
             send_registration_email(request.data['email'])
             return Response(status=status.HTTP_201_CREATED)
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginUser(generics.GenericAPIView):
@@ -35,20 +35,17 @@ class LoginUser(generics.GenericAPIView):
     def post(self, request):
         login_serializer = LoginSerializer(data=request.data)
         if login_serializer.is_valid():
+            print(login_serializer.errors)
             email = request.data.get('email')
             user = User.objects.filter(email=email).first()
             if user is None:
                 return Response({"message":'User not found'}, status=status.HTTP_400_BAD_REQUEST)
             password = request.data.get('password')
 
-            # if user.password == password:
-            #     return Response({"message":'Match'}, status=status.HTTP_200_OK)
             if not user.check_password(password):
-                return Response({"message":'Wrong password'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message":'Wrong password', "error": login_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({"message":'Match'}, status=status.HTTP_200_OK)
-            
 
-            return Response({"message":'User found'}, status=status.HTTP_200_OK)
         else:
             return Response({"message":'Credentials not valid'}, status=status.HTTP_400_BAD_REQUEST)
