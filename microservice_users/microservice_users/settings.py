@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
-from pathlib import Path
 import os
+from pathlib import Path
+
+from .logging_formatters import CustomJsonFormatter
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -135,3 +136,34 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # Development only
+
+LOGGING = {
+    "version": 1,  # the dictConfig format version
+    "disable_existing_loggers": True,  # retain the default loggers
+
+    "formatters":{
+        'main_formatter':{
+            '()': CustomJsonFormatter,
+        }
+    },
+
+    "handlers": {
+        "console":{
+            'class': "logging.StreamHandler",
+            'formatter': 'main_formatter'
+        },
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "general.log",
+            'formatter': 'main_formatter'
+        },
+    },
+
+    "loggers":{
+        'main':{
+            'handlers': ['file', 'console'],
+            'propagate': True,
+            'level': "INFO"
+        }
+    }
+}
