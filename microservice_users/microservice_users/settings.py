@@ -25,10 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yvr&oa%l2&8!r&bjfh+@@x5cyg7r5qs^b^0do$gedj6vf1%yuc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -133,8 +132,6 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # Development only
 
 LOGGING = {
@@ -167,3 +164,5 @@ LOGGING = {
         }
     }
 }
+
+AUTH_USER_MODEL = 'users.User'
