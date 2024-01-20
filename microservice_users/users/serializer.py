@@ -1,33 +1,35 @@
+import logging
+from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from rest_framework import  serializers
-
+from rest_framework import serializers
 
 from .models import User
+# from django.contrib.auth.models import User
+
 
 User = get_user_model()
-
-
+logger = logging.getLogger('main')
 
 class ResisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password',)
+        fields = ('password', 'email',)
         extra_kwargs = {
             'password':{'write_only': True},
         }
     
-    def validate_data(self):
-        data = self.get_initial()
-        email = data.get('email')
-        email_stored = User.objects.filter(email=email)
-        if email_stored.exists():
+    def validate_email(self, data):
+        logger.debug(f'Validating {data}')
+        user_email = User.objects.filter(email=data)
+        if user_email.exists():
             raise ValidationError("Email already registered")
-        else:
-            return data
-    
+
+        return data
+
     def create(self, validated_data):
-        user = User.objects.create(email=validated_data['email'], password=validated_data['password'])
+        user = User.objects.create_user(email=validated_data['email'], password=validated_data['password'], date_joined=datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ'))
+        logger.info(f'Created new user {validated_data}')
         return user
     
 
