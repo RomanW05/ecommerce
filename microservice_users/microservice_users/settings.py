@@ -75,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'microservice_users.wsgi.application'
 
-
 # Database
 DATABASE_NAME = os.getenv ('POSTGRES_DB')
 USER = os.getenv ('POSTGRES_USER')
@@ -175,9 +174,12 @@ REST_FRAMEWORK = {
     ),
 }
 
+EXPIRE_TIME_ACCESS_IN_SECS = 60*5  # 5 minutes
+EXPIRE_TIME_REFRESH_IN_SECS = 60*60*24*7  # 1 week
+
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=EXPIRE_TIME_ACCESS_IN_SECS),
+    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=EXPIRE_TIME_REFRESH_IN_SECS),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 
@@ -199,3 +201,4 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
