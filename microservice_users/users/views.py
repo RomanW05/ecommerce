@@ -77,9 +77,6 @@ class BlacklistRefreshView(generics.GenericAPIView):
     permission_class = (permissions.IsAuthenticated,)
 
     def post(self, request):
-        # logger.info(result)
-        logger.info(request.data.get('refresh'))
-        logger.info(request.headers)
         refresh = request.data.get('refresh')
         access = request.headers['Authorization'].split(' ')[1]
         if refresh is None:
