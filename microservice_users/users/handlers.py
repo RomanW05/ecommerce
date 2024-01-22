@@ -56,9 +56,10 @@ def cache_blacklisted_token(token):
     try:
         untyped_token = UntypedToken(token)
         jti = untyped_token['jti']
-        cache.set(jti, 'blacklisted', timeout=settings.EXPIRE_TIME_REFRESH_IN_SECS)  # Cache for 1 hour
+        cache.set(jti, 'blacklisted', timeout=settings.EXPIRE_TIME_REFRESH_IN_SECS)
+        logger.debug(f'Blacklisted token cached: {e}')
     except Exception as e:
-        logger.info(f'Error in caching token: {e}')
+        logger.debug(f'Error in caching token: {e}')
 
 def is_token_blacklisted(token):
     try:
