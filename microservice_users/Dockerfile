@@ -8,10 +8,11 @@ COPY /microservice_users/requirements.txt /app/
 
 RUN pip install -r /app/requirements.txt
 
-COPY /microservice_users/. /app/
+COPY /microservice_users /app/
 
 COPY wait-for-it.sh /wait-for-it.sh
 
+COPY /microservice_users/entrypoint.sh /entrypoint.sh
 RUN chmod +x /wait-for-it.sh
 
 ENV DATABASE_NAME POSTGRES_DB
@@ -19,7 +20,10 @@ ENV USER POSTGRES_USER
 ENV PASSWORD POSTGRES_PASSWORD
 ENV HOST POSTGRES_HOST
 ENV PORT POSTGRES_PORT
+ENV DJANGO_SECRET_KEY DJANGO_SECRET_KEY
 
-EXPOSE 8000
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--reload", "/microservice_users/microservice_users.wsgi:application"]
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
+
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
