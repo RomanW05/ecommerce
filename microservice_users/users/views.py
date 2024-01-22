@@ -1,3 +1,5 @@
+import logging
+
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.utils import timezone
@@ -12,20 +14,26 @@ from .serializer import (
 from .models import User
 # Create your views here.
 
-User = get_user_model()
+# User = get_user_model()
+logger = logging.getLogger('main')
 
 class RegisterUser(generics.GenericAPIView):
-    register_serializer = ResisterSerializer
+    serializer_class = ResisterSerializer
     permission_class = (permissions.AllowAny,)
 
     def post(self, request):
-        serializer = ResisterSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            try:
+                serializer.save()
+            except Exception as e:
+                logger.info(f'Error while saving validator: {e}')
+                return Response({"message": "User already created"}, status=status.HTTP_400_BAD_REQUEST)
             send_registration_email(request.data['email'])
             return Response(status=status.HTTP_201_CREATED)
         else:
-            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            logger.info(f'Serializer not valid: {serializer.errors}')
+            return Response({"message": "Email already exists"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginUser(generics.GenericAPIView):
@@ -35,7 +43,6 @@ class LoginUser(generics.GenericAPIView):
     def post(self, request):
         login_serializer = LoginSerializer(data=request.data)
         if login_serializer.is_valid():
-            print(login_serializer.errors)
             email = request.data.get('email')
             user = User.objects.filter(email=email).first()
             if user is None:
