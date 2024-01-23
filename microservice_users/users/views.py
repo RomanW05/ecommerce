@@ -8,9 +8,8 @@ from rest_framework_simplejwt.exceptions import TokenError
 
 from .authentication import JWTAuthentication
 from .handlers import send_registration_email, cache_blacklisted_token, is_token_blacklisted
-from .serializer import (
-    LoginSerializer,
-    ResisterSerializer, )
+from .models import Address
+from .serializer import (LoginSerializer, ResisterSerializer, ProfileSerializer)
 
 
 User = get_user_model()
@@ -36,13 +35,13 @@ class RegisterUser(generics.GenericAPIView):
 
 
 class LoginUser(generics.GenericAPIView):
-    login_serializer = LoginSerializer
+    serializer_class = LoginSerializer
     permission_class = (permissions.AllowAny,)
     authentication_classes = []
 
     def post(self, request):
         logger.info(f'User ')
-        serializer = self.login_serializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data.get("email")
             password = serializer.validated_data.get('password')
@@ -99,15 +98,25 @@ class AlwaysOK(generics.GenericAPIView):
 
 
 class ProfileUser(generics.GenericAPIView):
-
+    serializer_class = ProfileSerializer
     def get(self, request):
+
         user_id = request.user.get('user_id') if hasattr(request, 'user') and request.user else None
         if user_id is None:
             return Response({"message":"Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+        logger.debug(user_id)
+        try:
+            user = User.objects.get(id=user_id)
+        except Exception as e:
+            logger.debug(e)
+            return Response({"message":"User not found"}, status=status.HTTP_400_BAD_REQUEST) 
+        try:
+            address = Address.objects.get(user=user.pk)
+        except Exception as e:
+            logger.debug(e)
+            return Response({"message":"User needs to add data"}, status=status.HTTP_200_OK) 
 
-        logger.info(user_id)
+        return Response({"data":address}, status=status.HTTP_200_OK)
 
-        return Response({"message":user_id}, status=status.HTTP_200_OK)
 
-            
 
