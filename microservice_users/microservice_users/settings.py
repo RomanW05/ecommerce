@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
-    "users",
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -170,16 +169,15 @@ AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
+        'users.authenticate.JWTAuthentication',
     ),
 }
 
-EXPIRE_TIME_ACCESS_IN_SECS = 60*5  # 5 minutes
-EXPIRE_TIME_REFRESH_IN_SECS = 60*60*24*7  # 1 week
-
+ACCESS_TOKEN_LIFETIME = 60*60*24*7
+REFRESH_TOKEN_LIFETIME = 60*60*24*7
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=EXPIRE_TIME_ACCESS_IN_SECS),
-    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=EXPIRE_TIME_REFRESH_IN_SECS),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=ACCESS_TOKEN_LIFETIME),  #60*5  # 5 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=REFRESH_TOKEN_LIFETIME),  # 1 week
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 
