@@ -169,7 +169,7 @@ AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'users.authenticate.JWTAuthentication',
+        'users.authentication.JWTAuthentication',
     ),
 }
 
