@@ -22,6 +22,27 @@ def send_registration_email(user_email):
     )
 
 
+def send_custom_email(user, action, **kwargs):
+    match action:
+        case 'forgotten_password':
+            logger.debug(kwargs)
+            reset_token = kwargs.get('reset_token')
+            user_email = user.email
+            subject = 'Password reset'
+            body = f'This is the reset password, you have 5 minutes to reset before the token expires\n<a localhost:8000/users/reset_password/{reset_token}">Reset Password</a>'
+            email_sender(user_email, subject, body)
+
+
+def email_sender(user_email, subject, body):
+    send_mail(
+        subject,
+        body,
+        'info@example.com',
+        [user_email],
+        fail_silently=False,
+    )
+
+
 def cache_blacklisted_token(token):
     try:
         untyped_token = UntypedToken(token)
