@@ -8,8 +8,7 @@ from rest_framework_simplejwt.exceptions import TokenError
 
 from .authentication import JWTAuthentication
 from .handlers import send_registration_email, cache_blacklisted_token, is_token_blacklisted
-from .models import Address
-from .serializer import (LoginSerializer, ResisterSerializer, ProfileSerializer)
+from .serializer import (LoginSerializer, ResisterSerializer)
 
 
 User = get_user_model()
@@ -95,28 +94,4 @@ class AlwaysOK(generics.GenericAPIView):
     authentication_classes = []
     def get(self, request):
         return Response({"message": "ok"}, status=status.HTTP_200_OK)
-
-
-class ProfileUser(generics.GenericAPIView):
-    serializer_class = ProfileSerializer
-    def get(self, request):
-
-        user_id = request.user.get('user_id') if hasattr(request, 'user') and request.user else None
-        if user_id is None:
-            return Response({"message":"Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
-        logger.debug(user_id)
-        try:
-            user = User.objects.get(id=user_id)
-        except Exception as e:
-            logger.debug(e)
-            return Response({"message":"User not found"}, status=status.HTTP_400_BAD_REQUEST) 
-        try:
-            address = Address.objects.get(user=user.pk)
-        except Exception as e:
-            logger.debug(e)
-            return Response({"message":"User needs to add data"}, status=status.HTTP_200_OK) 
-
-        return Response({"data":address}, status=status.HTTP_200_OK)
-
-
 
