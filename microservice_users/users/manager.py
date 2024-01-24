@@ -35,6 +35,6 @@ class MyUserManager(BaseUserManager):
             password=password,
             **extra_fields
         )
-        user.is_admin = True
+
         user.save(using=self._db)
         return user
