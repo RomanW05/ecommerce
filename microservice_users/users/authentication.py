@@ -39,7 +39,6 @@ class JWTAuthentication(BaseAuthentication):
             raise AuthenticationFailed('Token expired')
         
         return payload, None
-
  
     def authenticate_header(self, request):
         return 'Bearer'
@@ -69,7 +68,19 @@ class JWTAuthentication(BaseAuthentication):
         # Encode the JWT with your secret key
         access_token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
         return access_token
-
+    
+    @classmethod
+    def create_password_reset_jwt(cls, user):
+        # Create the JWT payload
+        payload = {
+            'user_id': user.pk,
+            'exp': (datetime.utcnow() + timedelta(seconds=60*5)),  # 5 minutes
+            'iat': datetime.utcnow(),
+            'jti': str(uuid.uuid4())
+        }
+        # Encode the JWT with your secret key
+        access_token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+        return access_token
 
     @classmethod
     def get_the_token_from_header(cls, token):
