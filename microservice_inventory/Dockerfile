@@ -1,14 +1,22 @@
-# Dockerfile
 FROM python:3.10.13-slim
 
-ENV DATABASE_INVENTORY_POSTGRES_USER $POSTGRES_USER
-ENV DATABASE_INVENTORY_POSTGRES_PASSWORD $POSTGRES_PASSWORD
-ENV DATABASE_INVENTORY_POSTGRES_DATABASE_NAME $POSTGRES_DB
-ENV DATABASE_INVENTORY_POSTGRES_HOST $POSTGRES_HOST
+RUN apt-get update && apt-get install -y default-libmysqlclient-dev gcc
 
-COPY microservice_inventory/requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /app
 
-COPY microservice_inventory /app
+COPY /microservice_inventory/requirements.txt /app/
 
-CMD ["python", "/app/backend.py"]
+RUN pip install -r /app/requirements.txt
+
+COPY /microservice_inventory /app/
+
+COPY wait-for-it.sh /wait-for-it.sh
+
+RUN chmod +x /wait-for-it.sh
+
+ENV DATABASE_NAME POSTGRES_DB
+ENV USER POSTGRES_USER
+ENV PASSWORD POSTGRES_PASSWORD
+ENV HOST POSTGRES_HOST
+ENV PORT POSTGRES_PORT
+ENV DJANGO_SECRET_KEY DJANGO_SECRET_KEY
