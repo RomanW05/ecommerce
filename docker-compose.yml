@@ -50,14 +50,60 @@ services:
 
 
     # microservices
-    microservice_users:
+    # microservice_users:
+    #     restart: always
+    #     build:
+    #         dockerfile: ./microservice_users/Dockerfile
+    #     ports:
+    #         - "8001:8001"
+    #     command: python manage.py runserver 0.0.0.0:8001
+    #     # command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    #     depends_on:
+    #         - postgres
+    #     networks:
+    #         - brokers_network
+    #         - database_network
+    #     environment:
+    #         KAFKA_BROKERCONNECT: "kafka:9092"
+    #         POSTGRES_DB: ${POSTGRES_DATABASE_NAME}
+    #         POSTGRES_USER: ${POSTGRES_USER}
+    #         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    #         POSTGRES_HOST: postgres
+    #         POSTGRES_PORT: ${POSTGRES_PORT}
+    #         DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+    #     volumes:
+    #         - ./microservice_users/:/app
+    
+    # microservice_orders:
+    #     restart: always
+    #     build:
+    #         dockerfile: ./microservice_orders/Dockerfile
+    #     ports:
+    #         - "8002:8002"
+    #     command: python manage.py runserver 0.0.0.0:8002
+    #     # command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    #     depends_on:
+    #         - postgres
+    #     networks:
+    #         - brokers_network
+    #         - database_network
+    #     environment:
+    #         KAFKA_BROKERCONNECT: "kafka:9092"
+    #         POSTGRES_DB: ${POSTGRES_DATABASE_NAME}
+    #         POSTGRES_USER: ${POSTGRES_USER}
+    #         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    #         POSTGRES_HOST: postgres
+    #         POSTGRES_PORT: ${POSTGRES_PORT}
+    #         DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+    #     volumes:
+    #         - ./microservice_orders/:/app
+    
+    microservice_inventory:
         restart: always
         build:
-            dockerfile: ./microservice_users/Dockerfile
+            dockerfile: ./microservice_inventory/Dockerfile
         ports:
-            - "8000:8000"
-        command: /wait-for-it.sh db:5432 -- python manage.py runserver 0.0.0.0:8000
-        # command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+            - "8003:8003"
         depends_on:
             - postgres
         networks:
@@ -72,9 +118,9 @@ services:
             POSTGRES_PORT: ${POSTGRES_PORT}
             DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
         volumes:
-            - ./microservice_users/:/app
+            - ./microservice_inventory/:/app
 
-    # # Database administrator
+    # Database administrator
     pgadmin:
         image: dpage/pgadmin4
         container_name: postgres_main
@@ -82,7 +128,7 @@ services:
             PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
             PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
             PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
-            # PGADMIN_CONFIG_SERVER_MODE: ${PGADMIN_CONFIG_SERVER_MODE}
+            # PGADMIN_CONFIG_SERVER_MODE: ${PGADMIN_CONFIG_SERVER_MODE}  # Keep commented out
         ports:
             - "5050:${PGADMIN_LISTEN_PORT}"
         volumes:
@@ -104,6 +150,23 @@ services:
             - "5432:5432"
         networks:
             - database_network
+    
+    # Proxies
+    nginx:
+        restart: always
+        image: nginx
+        build:
+            dockerfile: ./nginx/Dockerfile
+        ports:
+            - "81:81"
+        depends_on:
+            - microservice_inventory
+        volumes:
+            - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+        networks:
+            - brokers_network
+            - database_network
+
 
 networks:
     database_network:
@@ -115,3 +178,4 @@ volumes:
     zookeeper: {}
     kafka1: {}
     pgadmin: {}
+    static:
