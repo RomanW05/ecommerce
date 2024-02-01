@@ -163,6 +163,7 @@ services:
             - microservice_inventory
         volumes:
             - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+            - ./microservice_inventory/static:/etc/nginx/static/microservice_inventory
         networks:
             - brokers_network
             - database_network
@@ -178,4 +179,3 @@ volumes:
     zookeeper: {}
     kafka1: {}
     pgadmin: {}
-    static:
