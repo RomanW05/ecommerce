@@ -12,7 +12,6 @@ COPY /microservice_users /app/
 
 COPY wait-for-it.sh /wait-for-it.sh
 
-COPY /microservice_users/entrypoint.sh /entrypoint.sh
 RUN chmod +x /wait-for-it.sh
 
 ENV DATABASE_NAME POSTGRES_DB
@@ -22,8 +21,5 @@ ENV HOST POSTGRES_HOST
 ENV PORT POSTGRES_PORT
 ENV DJANGO_SECRET_KEY DJANGO_SECRET_KEY
 
-RUN chmod +x entrypoint.sh
-
-ENTRYPOINT [ "/entrypoint.sh" ]
-
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+COPY ./microservice_inventory/entrypoint.sh /
+ENTRYPOINT [ "sh", "/entrypoint.sh" ]
