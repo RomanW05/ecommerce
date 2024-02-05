@@ -117,9 +117,10 @@ services:
             POSTGRES_HOST: postgres
             POSTGRES_PORT: ${POSTGRES_PORT}
             DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+            DJANGO_ENV: development
         volumes:
             - ./microservice_inventory/:/app
-
+    
     # Database administrator
     pgadmin:
         image: dpage/pgadmin4
@@ -152,21 +153,23 @@ services:
             - database_network
     
     # Proxies
-    nginx:
-        restart: always
-        image: nginx
-        build:
-            dockerfile: ./nginx/Dockerfile
-        ports:
-            - "81:81"
-        depends_on:
-            - microservice_inventory
-        volumes:
-            - ./default.conf:/etc/nginx/conf.d/default.conf:ro
-            - ./microservice_inventory/static:/etc/nginx/static/microservice_inventory
-        networks:
-            - brokers_network
-            - database_network
+    # nginx:
+    #     restart: always
+    #     image: nginx
+    #     build:
+    #         dockerfile: ./nginx/Dockerfile
+    #     ports:
+    #         - "81:81"
+    #     depends_on:
+    #         - microservice_inventory
+    #     volumes:
+    #         - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+    #         - ./microservice_inventory/static:/etc/nginx/static/microservice_inventory
+    #         - ./microservice_users/static:/etc/nginx/static/microservice_users
+    #         - ./microservice_orders/static:/etc/nginx/static/microservice_orders
+    #     networks:
+    #         - brokers_network
+    #         - database_network
 
 
 networks:
@@ -176,6 +179,7 @@ networks:
         driver: bridge
 
 volumes:
-    zookeeper: {}
-    kafka1: {}
+    # zookeeper: {}
+    # kafka1: {}
     pgadmin: {}
+
