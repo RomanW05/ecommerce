@@ -101,7 +101,8 @@ services:
     microservice_inventory:
         restart: always
         build:
-            dockerfile: ./microservice_inventory/Dockerfile
+            context: ./microservice_inventory
+            dockerfile: Dockerfile
         ports:
             - "8003:8003"
         depends_on:
