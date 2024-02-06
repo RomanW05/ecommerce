@@ -25,6 +25,7 @@ class Products(models.Model):
     name = models.CharField(_('Name'), max_length=60)
     size = models.ForeignKey(Sizes, on_delete=models.RESTRICT, max_length=60)
     sku = models.CharField(('SKU'), max_length=60, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Discounts(models.Model):
