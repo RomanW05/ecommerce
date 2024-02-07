@@ -12,3 +12,12 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Products
         fields = '__all__'
     
+class CatalogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Products
+        fields = ('catalog',)
+
+class LatestArrivalsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Products
+        fields = '__all__'
